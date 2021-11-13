@@ -65,12 +65,12 @@ migzapp.post(
 
     body("password")
       .isLength({ min: 1 })
-      .withMessage("*Password field cannot be blank")
+      .withMessage("*Password field cannot be blank"),
+    body("position")
+      .isLength({ min: 1 })
+      .withMessage("*Position field cannot be blank")
 
 
-    // body("dateFormatted")
-    //   .isLength({ min: 1 })
-    //   .withMessage("*Registered date field cannot be blank"),
   ],
   (req, res, next) => {
     try {
@@ -99,7 +99,7 @@ migzapp.post(
 
       } else {
         const fullname = req.body.fullname;
-        const location = req.body.location;
+        const position = req.body.position;
         const email = req.body.email;
         const contactNumber = req.body.contactNumber;
         const password = req.body.password;
@@ -116,8 +116,8 @@ migzapp.post(
         let transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: process.env.EMAIL,
-            pass: process.env.PASSWORD
+            user: "nalhubsys@gmail.com",
+            pass: "b0r0t0y@2021"
           }
         });
 
@@ -145,7 +145,8 @@ migzapp.post(
           password,
           verified,
           code,
-          type
+          type,
+          position
         }); // Instantiate the User in user.model
 
         //GENERATING /ASSIGNING TOKEN TO USER
@@ -165,20 +166,9 @@ migzapp.post(
   }
 );
 
-// //details
 
-migzapp.get("/view/:id", (req, res) => {
-  User.findById(req.params.id)
-    .then((user) => res.json(user))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
 
-// //DELETE
-migzapp.delete("/delete/:id", (req, res) => {
-  User.findByIdAndDelete(req.params.id)
-    .then((user) => res.json("Record was deleted."))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+
 
 // //UPDATE
 
@@ -254,46 +244,7 @@ migzapp.put(
 
 
 
-//UPDATE WAS CANCEL
 
-migzapp.put(
-  "/updatecancel/:id",
-
-  (req, res, next) => {
-
-    User.findById(req.params.id)
-      .then((user) => {
-        user.location = req.body.location;
-        user.email = req.body.email;
-        user.contactNumber = req.body.contactNumber;
-
-        user.save()
-
-          .then((user) => res.json("Record was updated."))
-      })
-  }
-);
-
-
-
-
-migzapp.put(
-  "/updatecancel/:id",
-
-  (req, res, next) => {
-
-    User.findById(req.params.id)
-      .then((user) => {
-        user.location = req.body.location;
-        user.email = req.body.email;
-        user.contactNumber = req.body.contactNumber;
-
-        user.save()
-
-          .then((user) => res.json("Record was updated."))
-      })
-  }
-);
 
 
 
@@ -338,6 +289,7 @@ migzapp.put("/verify/", (req, res) => {
 
 
 //MAKING FUNCTIONS TO VERIFY IF USER IS AUTHORIZED WITH THE VALID TOKEN
+///SECURITY SO THAT DATA COULD NOT BE DIPLAY IF USER IS NOT LOG IN AND AUTHORIZE
 const verifyJWT = (req, res, next) => {
   const token = req.headers["x-access-token"]
 
@@ -386,7 +338,7 @@ migzapp.post("/login/", (req, res) => {
         })
        
 
-        res.json({ auth: true, token: token, type:user[0].type, email:user[0].email })
+        res.json({ auth: true, token: token, position:user[0].position, email:user[0].email })
 
       } else {
         res.status(400).json({ auth: false, message: "WALA NI EXIST ANG YATI, PAG CREATE OY" })
@@ -640,6 +592,54 @@ migzapp.post("/travelLog",  (req, res) => {
     .then((travelLog) => res.status(200).json(travelLog)) // IF TRUE CHECK
     .catch((err) => res.status(400).json("Error : " + err)); // IF ERROR
 });
+
+
+
+///DISPLAY ALL THE OFFICIALS
+
+migzapp.post("/displayOfficial",(req, res) => {
+ 
+  User.find() // PROMISE IF ELSE
+    .then((user) => res.json(user)) // IF TRUE CHECK
+    .catch((err) => res.status(400).json("Error : " + err)); // IF ERROR
+});
+
+
+
+
+//VIEW SPECIFIC OFFICIAL DETAILS
+migzapp.post("/viewOfficial/:id", (req, res) => {
+  User.findById(req.params.id)
+    .then((user) => res.json(user))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//DELETE SPECIFIC OFFICIAL
+migzapp.delete("/deleteOfficial/:id", (req, res) => {
+  User.findByIdAndDelete(req.params.id)
+    .then((user) => res.json("Record was deleted."))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+
+//////////////// TRAVEL LOG FUNCTIONALITIES //////////////////////////
+
+//VIEW SPECIFIC TRAVEL LOGS DETAILS OF OFFICIALS
+migzapp.post("/viewTravel/:id", (req, res) => {
+  travelLog.findById(req.params.id)
+    .then((user) => res.json(user))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//DELETE SPECIFIC TRAVEL DETAILS OF OFFICIALS
+migzapp.delete("/deleteTravel/:id", (req, res) => {
+  travelLog.findByIdAndDelete(req.params.id)
+    .then((user) => res.json("Record was deleted."))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+
+
 
 
 

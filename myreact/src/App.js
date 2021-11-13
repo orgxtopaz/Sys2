@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Route} from "react-router-dom"; //routes
 import Forms from "./components/userAuth/Forms";
 
 import Login from "./components/login";
-import Register from "./components/captainAuth/Register";
-import Verify from "./components/userAuth/Verified";
 
 
 
@@ -15,7 +13,6 @@ import Verify from "./components/userAuth/Verified";
 
 
 
-import Delete from "./components/Delete";
 import Update from "./components/Update";
 import View from "./components/View";
 
@@ -25,8 +22,20 @@ import Organizational from "./components/userAuth/OrganizationalChart";
 import Travel from "./components/userAuth/TravelPage";
 import Dashboard from "./components/userAuth/Dashboard";
 
+///FOR SK OFFICIALS
+import skDashboard from "./components/skAuth/Dashboard";
+import skTravel from "./components/skAuth/skTravel";
+import skOrganizational from "./components/skAuth/skOrganizational";
+import createOfficial from "./components/skAuth/createOfficial";
+import Verify from "./components/skAuth/Verified";
+import DeleteOfficial from "./components/skAuth/DeleteOfficial";
+import DeleteTravel from "./components/skAuth/DeleteTravel";
 
-import ViewReports from "./components/ViewReports";
+
+
+
+
+
 
 function App() {
   return (
@@ -53,14 +62,10 @@ function App() {
            
             {/* ROUTES LANG SAKALAM */}
             <Route exact path="/" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/verify/:userId" component={Verify} />
 
             <Route exact path="/Form/" component={Forms} />
             <Route exact path="/View/:viewId" component={View} />
-            <Route exact path="/Delete/:deleteId" component={Delete} />
             <Route exact path="/Update/:updateId" component={Update} />
-            <Route exact path="/ViewReports" component={ViewReports} />
 
 
 
@@ -69,6 +74,17 @@ function App() {
             <Route exact path="/Dashboard" component={Dashboard} />
             <Route exact path="/Organizational" component={Organizational} />
             <Route exact path="/Travel" component={Travel} />
+
+
+            {/* FOR SK OFFICIAL */}
+            <Route exact path="/skDashboard" component={skDashboard} />
+            <Route exact path="/skOrganizational" component={skOrganizational} />
+            <Route exact path="/skTravel" component={skTravel} />
+            <Route exact path="/createOfficial" component={createOfficial} />
+            <Route exact path="/verify/:userId" component={Verify} />
+            <Route exact path="/deleteOfficial/:userId" component={DeleteOfficial} />
+            <Route exact path="/deleteTravel/:travelId" component={DeleteTravel} />
+
 
 
        

@@ -18,9 +18,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import "bootstrap/dist/css/bootstrap.min.css";
+import Axios from "axios"; //allows us to make GET and POST requests from the browser.
+import { useEffect } from "react"; //a hook that GIVES  "side-effects"
+
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+
+import { useState } from "react"; //HERE we import useState Hook so we can add state to our functional components.
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //routes
+
 import { useHistory } from "react-router-dom"; // allows us to access our path / route history.
 
-import { BrowserRouter as Router, Route,Link} from "react-router-dom"; //routes
+import "../../components/css/component.css"
 
 
 const drawerWidth = 240;
@@ -87,7 +96,87 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Announcement() {
+function Dashboard() {
+
+
+
+
+  ///FUNCTIONS FOR TIME IN AND TIME OUT BUTTON
+
+  function timeIn() {
+
+    //GENERATE THE CURRENT DATE AND TIME FOR TIME IN
+    const DateandTimeSplit = new Date().toLocaleString().split(",");
+    const DateandTimeIn = new Date().toLocaleString();
+
+    const date = DateandTimeSplit[0]
+
+    Axios.post("http://localhost:5000/timeIn", {
+
+
+
+      email: localStorage.getItem("Email"),
+      timeIn: DateandTimeIn,
+      timeOut: null,
+      date: date
+
+
+    })
+      .then((res) => {
+        alert("Time in successfully!")
+
+        // HERE WE WILL FETCH THE ERROR MESSAGE FROM BACK END AND STORE IT IN AN ARRAY!
+      })
+      .catch((err) => {
+
+
+        alert(err.response.data.message)
+
+      })
+
+  }
+
+  function timeOut() {
+    //GENERATE THE CURRENT DATE AND TIME FOR TIME IN
+    const DateandTime = new Date().toLocaleString().split(",");
+
+    const date = DateandTime[0]
+    const DateandTimeOut = new Date().toLocaleString();
+
+    //  const timeOut = DateandTime[1]
+
+    Axios.put("http://localhost:5000/timeOut", {
+
+
+      email: localStorage.getItem("Email"),
+      timeOut: DateandTimeOut,
+      date: date
+
+
+
+    })
+      .then((res) => {
+        alert("Time Out successfully!")
+
+        // HERE WE WILL FETCH THE ERROR MESSAGE FROM BACK END AND STORE IT IN AN ARRAY!
+      })
+      .catch((err) => {
+
+
+        alert(err.response.data.message)
+
+
+
+      })
+
+
+
+
+  }
+
+
+
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -100,14 +189,88 @@ function Announcement() {
     setOpen(false);
   };
 
-   ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
+  
+  /////FETCHING THE OFFICIAL ATTENDANCE DATA SPECIFIC
+  
+  const [AttendanceList, setAttendanceList] = useState([]);
+  const isLoaded = [true];
+  useEffect(() => {
+ 
+     if (isLoaded) {
+      Axios.post("http://localhost:5000/Attendance", 
+
+      { headers: { "x-access-token":localStorage.getItem('userToken') },email:localStorage.getItem("Email")}
+      
+      )
+    
+      
+      .then((response) => {
+        setAttendanceList(response.data);
+
+     
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+    }else{
+      alert("GAdsgsdgd")
+    }
+  }, isLoaded);
+
+
+//    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
   
    let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-   if(localStorage.getItem('Official')==null){
+   if(localStorage.getItem('sk')==null){
     history.push("/")
    }
+
+
+   const logout = (e) => {
+    e.preventDefault();
+    window.localStorage.removeItem('sk');
+    window.localStorage.removeItem('Email');
+    window.location.reload();
+
+  }
+
+  ///ATTENDANCE TABLE
+
+
+  let columns = [
+   
+    {
+      field: "timeIn",
+      headerName: "Time In",
+      width: 160,
+      headerAlign: "center",
+    },
+    {
+      field: "timeOut",
+      headerName: "Time Out",
+      width: 160,
+      headerAlign: "center",
+    },
+    {
+      field: "totalHours",
+      headerName: "Total Hours",
+      width: 100,
+      headerAlign: "center",
+      headerClassName: "super-app-theme--header",
+    },
+    {
+      field: "date",
+      headerName: "Date",
+      width: 170,
+      headerAlign: "center",
+    }
+
+ 
+   
+  ];
+
   return (
-  
+
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -128,11 +291,11 @@ function Announcement() {
           >
             <MenuIcon />
           </IconButton>
-          
-          <Typography variant="h6" noWrap style={{paddingLeft:"300px"}} >
-           Announcement BOROTOY MADAFUCKING SYSTEM
+
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
+            SK BOROTOY MADAFUCKING SYSTEM
           </Typography>
-      
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -149,15 +312,17 @@ function Announcement() {
         }}
       >
         <div className={classes.toolbar}>
+       
           <IconButton onClick={handleDrawerClose}>
+            <h1>Official</h1>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         <Divider />
         <List>
-        <div className="sidebar">
+          <div className="sidebar">
 
-        <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
@@ -166,124 +331,91 @@ function Announcement() {
 
             <br></br>
 
-            <Link to={`/Organizational`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
             </Link>
 
             <br></br>
-            <Link to={`/Travel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            </Link>
+
+            <br></br>
+            <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
+              className="bi bi-people-fill"
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
             </Link>
 
 
 
 
 
-           
-           
-       
-      </div>
-      
+
+          </div>
+
         </List>
-        
+
         <Divider />
-      
+
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <div className="row">
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+        <div style={{ float: "right" }}>
+          <button
+            type="button"
+            className="btn btn-outline-success btn-rounded mr-2"
+            data-mdb-ripple-color="dark"
+            onClick={timeIn}
+
+          >
+            Time In
+  </button>
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-rounded "
+            data-mdb-ripple-color="dark"
+            onClick={timeOut}
+          >
+            Time Out
+  </button>
         </div>
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        
+        <button onClick={logout}>LogOut</button>
+
+
+
+ {/* TABLE RENDERED */}
+      <div style={{ height: 400, width: '70%' }}>
+
+          {/* data grid include filtering, columns. */}
+
+          <DataGrid
+            rows={AttendanceList}
+            columns={columns}
+            getRowId={(row) => row._id}
+            pageSize={5}
+      
+
+          // checkboxSelection
+          />
         </div>
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted">sss</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+
+
       </main>
     </div>
-    
-  );
+
+
+
+  );    
 }
-export default Announcement;
+export default Dashboard;

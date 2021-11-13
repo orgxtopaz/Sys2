@@ -23,6 +23,14 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //routes
 
 
+////FOR REGISTER FORM IMPORTS
+
+import "../../components/css/all.css"
+
+import "../../components/css/register.css"
+import Axios from "axios"; //allows us to make GET and POST requests from the browser.
+
+
 
 
 /////BUTTON 
@@ -36,8 +44,6 @@ import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 
-import Axios from "axios"; //allows us to make GET and POST requests from the browser.
-import { useEffect } from "react"; //a hook that GIVES  "side-effects"
 
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
@@ -45,6 +51,7 @@ import { useState } from "react"; //HERE we import useState Hook so we can add s
 
 
 import { useHistory } from "react-router-dom"; // allows us to access our path / route history.
+import { useEffect } from "react"; //a hook that GIVES  "side-effects"
 
 
 //BUTTON ADD NEW TRAVEL LOG
@@ -122,7 +129,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Travel() {
+function CreateOfficial() {
+
+
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -155,45 +165,68 @@ function Travel() {
 
   // ENDDDDDDDDD
 
-  ///SUBMIT NEW TRAVEL LOG
+  ///ADD NEW USER
 
-
-  const [fullname, setFullname] = useState("");
-  const [date, setDate] = useState("");
+   //  // NO USE
+  //  ///HERE ARE THE VARIABLES WHICH GET OR STORE THE DATA THAT IS INPUTED
+  const [fullname, setfullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
   const [position, setPosition] = useState("");
-  const [purpose, setPurpose] = useState("");
+
   const [errorList, setErrorList] = useState([]);
 
-  const submitTravel = (e) => {
+
+  const addUser = (e) => {
+    e.preventDefault();
+ 
+    //CHECKIING IF EMAIL EXIST
+    console.log(errorList)
+
+
+      Axios.post("http://localhost:5000/add", {
+        fullname: fullname,
+        email: email,
+        password: password,
+        position: position,
+        contactNumber: contactNumber,
+      })
+        .then((res) => {  
+
+          let verifyToken = res.data.verifyToken;
+        
+          let emailToken = res.data.email
+          
+
+          localStorage.setItem("verifyToken", 'Bearer ' + verifyToken);
+
+          ///GETTING THE EMAIL THAT USER USE IN REGISTER AND STORE IT IN LOCALSTORAGE.
+          localStorage.setItem("emailToken", emailToken);
+       
+          history.push(`/verify/${res.data.user._id}`)
+        }) 
+        .catch ((err) => {
+                   
+            setErrorList(err.response.data);
+ 
+
+            if(errorList[27]=='1'){
+              console.log(errorList)
+           
+              alert("Email Exist Create New!")
+          
+            }
+    
+ 
+       
+        })
   
-    e.preventDefault()
-
-    Axios.post("http://localhost:5000/submitTravel", {
-      email: localStorage.getItem("Email"),
-      fullname: fullname,
-      date: date,
-      position: position,
-      purpose: purpose,
+      }
 
 
-    })
-      .then((res) => {
 
-        alert("New Travel Created Successfully!")
-        window.location.reload();
-
-
-      })
-      .catch((err) => {
-
-        setErrorList(err.response.data);
-
-
-      })
-
-  }
-
-  ///ENDDDDDDDDD
+  
 
 
 
@@ -205,7 +238,7 @@ function Travel() {
 
 
     if (isLoaded) {
-      Axios.post("http://localhost:5000/travelLog",
+      Axios.post("http://localhost:5000/displayOfficial",
 
         { headers: { "x-access-token": localStorage.getItem('userToken') }, email: localStorage.getItem("Email") }
 
@@ -226,12 +259,9 @@ function Travel() {
   }, isLoaded);
 
 
-  ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
 
-  let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-  if (localStorage.getItem('Official') == null) {
-    history.push("/")
-  }
+
+ 
 
 
 
@@ -241,8 +271,8 @@ function Travel() {
 
   let columns = [
     {
-      field: `_id`,
-      headerName: "Travel Log Number",
+      field: `fullname`,
+      headerName: "Fullname",
       width: 130,
       className: "userId",
       headerAlign: "center",
@@ -255,40 +285,47 @@ function Travel() {
       headerAlign: "left",
     },
     {
-      field: "purpose",
-      headerName: "Purpose",
+      field: "email",
+      headerName: "Email",
       width: 100,
       headerAlign: "left",
       headerClassName: "super-app-theme--header",
     },
     {
-      field: "date",
-      headerName: "Date",
+      field: "contactNumber",
+      headerName: "Contact Number",
       width: 130,
       headerAlign: "left",
     },
 
+  
     {
-      field: "actionview",
-      headerName: "VIEW",
-      width: 122,
+      field: "actiondelete",
+      headerName: "MANAGE",
+      width: 150,
       //grid renders values into the cells as strings
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
       renderCell: (data) => (
         <strong>
-          <Link to={`/View/${data.row._id}`}>
+          <Link to={`/deleteOfficial/${data.row._id}`}>
             {" "}
             <i
-              className="bi bi-eye-fill"
+              className="bi bi-pencil-square"
               style={{ fontSize: "20px", color: "#343a40" }}
             ></i>
           </Link>
         </strong>
       ),
-    }
+    },
 
   ];
 
+   //    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
+   let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
+   if(localStorage.getItem('sk')==null){
+    history.push("/")
+   }
+   
   return (
 
     <div className={classes.root}>
@@ -352,7 +389,7 @@ function Travel() {
         <List>
           <div className="sidebar">
 
-          <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
+          <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
@@ -361,20 +398,25 @@ function Travel() {
 
             <br></br>
 
-            <Link to={`/Organizational`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
             </Link>
 
             <br></br>
-            <Link to={`/Travel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
 
-
+            <br></br>
+            <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
+              className="bi bi-people-fill"
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            </Link>
            
 
 
@@ -395,7 +437,7 @@ function Travel() {
         {/* ADD BUTTON TRAVEL LOG */}
         <div>
           <Button variant="outlined" onClick={handleClickOpen}>
-            Input New in Travel Log
+            Create Official Account
       </Button>
           <br></br>
           <br></br>
@@ -416,7 +458,7 @@ function Travel() {
                   <CloseIcon />
                 </IconButton>
                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                  Add new Travel Log
+                  Add new Official
             </Typography>
 
               </Toolbar>
@@ -428,109 +470,158 @@ function Travel() {
 
 
               <div style={{ marginTop: "50px" }}>
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                  <div className="col-lg-8 col-xl-6">
-                    <div className="card rounded-3">
-                      <img src="https://pilipinaspopcorn.com/wp-content/uploads/2017/03/M._Cuenco_Avenue_Cebu_City_-_panoramio-1280x720.jpg" className="w-100" style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '.3rem' }} alt="Sample photo" />
-                      <div className="card-body p-4 p-md-5">
-                        <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Travel Details</h3>
-                        <form className="px-md-2">
-                          <div className="form-outline mb-4">
-                            <input type="text" className="form-control" onChange={(event) => {
-                              setFullname(event.target.value);
-                            }} />
-                            <label className="form-label" htmlFor="form3Example1q">Name</label>
-                            {/* FOR THE ERROR OF FULLNAME */}
-                            <small
-                              id="emailHelp"
-                              className="form-text text-danger"
-                            >
-                              {errorList.fullname}
 
-                            </small>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-6 mb-4">
-                              <div className="form-outline datepicker">
-                                <input type="date" className="form-control" id="exampleDatepicker1" placeholder="Date" onChange={(event) => {
-                                  setDate(event.target.value);
-                                }} />
-                                <label htmlFor="exampleDatepicker1" className="form-label"></label>
+              <div>
+      {/* Custom fonts for this template*/}
+      <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+        {/* Custom styles for this template*/}
+        <link href="css/register.min.css" rel="stylesheet" />
+
+
+        <div className="card o-hidden border-0 shadow-lg my-5">
+          <div className="card-body p-0">
+            {/* Nested Row within Card Body */}
+            <div className="row">
+              <div className="col-lg-5 d-none d-lg-block bg-register-image" > 
+              <img style={{width:"93%",height:"auto"}} src="https://c4.wallpaperflare.com/wallpaper/62/567/629/joker-batman-heath-ledger-wallpaper-preview.jpg"></img>
+
+              </div>
+              <div className="col-lg-7">
+                <div className="p-5">
+                  <div className="text-center">
+                    <h1 className="h4 text-gray-900 mb-4">Create an Account!</h1>
+                  </div>
+                  <form className="user">
+                    <div className="form-group row">
+                      <div className="col-sm-6 mb-3 mb-sm-0">
+                        <input type="text" className="form-control form-control-user" id="exampleFirstName" placeholder="Full Name"   onChange={(event) => {
+                                  setfullname(event.target.value);
+                                }} name="fullname"/>
+
                                 {/* FOR THE ERROR OF FULLNAME */}
                                 <small
-                                  id="emailHelp"
-                                  className="form-text text-danger"
-                                >
-                                  {errorList.date}
+                                id="emailHelp"
+                                className="form-text text-danger"
+                              >
+                               {errorList.fullname}
+                   
+                              </small>
 
-                                </small>
-                              </div>
-                            </div>
 
-                          </div>
-                          <div className="form-outline mb-4">
-                           
+                      </div>
+                      <div className="col-sm-6">
+                        <input type="text" className="form-control form-control-user" id="exampleLastName" placeholder="Contact Number"    onChange={(event) => {
+                                  setContactNumber(event.target.value);
+                                }}
+                                name="contactNumber" />
 
-                            <select className="form-select" aria-label="Default select example" 
-                             onChange={(event) => {
-                                  setPosition(event.target.value);
-                                }}>
-                               <option value="" hidden>
-                                  Select Position
-                                </option>
-                               <option value="One">Official</option>
-                              <option value="Two">Secretary</option>
-                              <option alue="Three">Treasurer</option>
-                              <option alue="Three">Brgy.Captain</option>
-                              <option alue="Three">Sangguniang Kabataan</option>
-                            </select>
-                            <small
-                              id="emailHelp"
-                              className="form-text text-danger"
-                            >
-                              {errorList.position}
-
-                            </small>
-                          </div>
-
-                          <div className="row mb-4 pb-2 pb-md-0 mb-md-5">
-                            <div className="col-md-6">
-                              <div className="form-outline">
-                                <input type="text" id="form3Example1w" className="form-control" onChange={(event) => {
-                                  setPurpose(event.target.value);
-                                }} />
-                                <label className="form-label" htmlFor="form3Example1w">Purpose</label>
-                                {/* FOR THE ERROR OF FULLNAME */}
+                                
+                                {/* FOR THE ERROR OF ContactNumber */}
                                 <small
-                                  id="emailHelp"
-                                  className="form-text text-danger"
-                                >
-                                  {errorList.purpose}
-
-                                </small>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-check">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              id="flexCheckDefault"
-                              required
-                            />
-                            <label class="form-check-label" for="flexCheckDefault">
-                              I understand taking this action with my permission
-                            </label>
-                          </div>
-                          <br></br>
-
-                          <button type="submit" onClick={submitTravel} className="btn btn-success btn-lg mb-1">Submit</button>
-                        </form>
+                                id="emailHelp"
+                                className="form-text text-danger"
+                              >
+                               {errorList.contactNumber}
+                   
+                              </small>
                       </div>
                     </div>
+                    <div className="form-group">
+                      <input type="text" className="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address"   onChange={(event) => {
+                                  setEmail(event.target.value);
+                                }}
+                                required
+                                name="email" />
+
+                                
+                                {/* FOR THE ERROR OF EMAIL */}
+                                <small
+                                id="emailHelp"
+                                className="form-text text-danger"
+                              >
+                               {errorList.email}
+                   
+                              </small>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-sm-6 mb-3 mb-sm-0">
+                        
+                        <input type="password"  className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"    onChange={(event) => {
+                                  setPassword(event.target.value);
+                                }}
+                                name="password"  />
+
+                                
+                                {/* FOR THE ERROR OF PASSWORD */}
+                                <small
+                                id="emailHelp"
+                                className="form-text text-danger"
+                              >
+                               {errorList.password}
+                   
+                              </small>
+                      </div>
+
+
+                      <div className="col-sm-6 mb-3 mb-sm-0">
+
+                      <select
+                             
+                                className="form-select "
+                                id="inlineFormCustomSelect form3Example4cd"
+                                aria-label="Default select example"
+                                onChange={(event) => {
+                                  setPosition(event.target.value);
+                                }}
+                                name="location"
+                                placeholder="sdsd"
+                                style={{height:"50px",borderRadius:"10rem",fontFamily:"'Raleway', sans-serif"}}
+                              >
+                                <option value="" hidden>
+                                  Select POSITION
+                                </option>
+                                <option value="official" style={{fontFamily:"'Raleway', sans-serif"}}>Official</option>
+                                <option value="secretary" style={{fontFamily:"'Raleway', sans-serif"}}>Secretary</option>
+                                <option value="treasurer" style={{fontFamily:"'Raleway', sans-serif"}}>Treasurer</option>
+                                <option value="captain" style={{fontFamily:"'Raleway', sans-serif"}}>Brgy.Captain</option>
+                                <option value="sk" style={{fontFamily:"'Raleway', sans-serif"}}>Sangguniang Kabataan</option>
+
+                              </select>
+                        
+                        
+
+                                
+                                {/* FOR THE ERROR OF POSITION */}
+                                <small
+                                id="emailHelp"
+                                className="form-text text-danger"
+                              >
+                               {errorList.position}
+                   
+                              </small>
+                      </div>
+                     
+                    </div>
+                    <button onClick={addUser} className="btn btn-primary btn-user btn-block">
+                      Create Official Account
+                    </button>
+                    <hr />
+                  
+                  </form>
+                 
+                  <div className="text-center">
+                   <small>Only SK Official can create Account for Officials!</small>
                   </div>
+                  
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+                
+                
               </div>
 
 
@@ -564,4 +655,4 @@ function Travel() {
 
   );
 }
-export default Travel;
+export default CreateOfficial;

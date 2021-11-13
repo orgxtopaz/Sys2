@@ -43,15 +43,18 @@ const loginNow =(e)=>{
        //IF AUTH IS = TRUE comes from the backend!
      if (res.data.auth){
 
-       if(res.data.type =="official"){
+       if(res.data.position =="official"){
         console.log(res.data)
         localStorage.setItem("Official", res.data.token);
         localStorage.setItem("Email", res.data.email);
         history.push(`/Dashboard`); 
+       } else if(res.data.position =="sk"){
+        
+        localStorage.setItem("sk", res.data.token);
+        localStorage.setItem("Email", res.data.email);
+        history.push(`/skDashboard`); 
        }
-       
-    
-   
+
      }
       
 
@@ -66,6 +69,8 @@ const loginNow =(e)=>{
 ///IF THE USER SUCCESSFULLY LOG IN , IT CANNOT GO BACK TO THE LOG IN PAGE
 if(localStorage.getItem('Official')!=null){
  history.push("/Dashboard")
+}else if(localStorage.getItem('sk')!=null){
+  history.push("/skDashboard")
 }
 
  

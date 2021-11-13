@@ -100,12 +100,14 @@ function Announcement() {
     setOpen(false);
   };
 
-   ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
+
+  //    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
   
-   let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-   if(localStorage.getItem('Official')==null){
-    history.push("/")
-   }
+  let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
+  if(localStorage.getItem('sk')==null){
+   history.push("/")
+  }
+
   return (
   
     <div className={classes.root}>
@@ -157,7 +159,7 @@ function Announcement() {
         <List>
         <div className="sidebar">
 
-        <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
+        <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
@@ -166,21 +168,25 @@ function Announcement() {
 
             <br></br>
 
-            <Link to={`/Organizational`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
             </Link>
 
             <br></br>
-            <Link to={`/Travel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
 
-
-
+            <br></br>
+            <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
+              className="bi bi-people-fill"
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            </Link>
 
 
            

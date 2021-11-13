@@ -49,7 +49,7 @@ const userSchema = new Schema({
         trim:true  // removing the first space in value input     
 
     },
-    type:{
+    position:{
 
         type:String,
         required:true,

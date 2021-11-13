@@ -49,7 +49,7 @@ const verifiedNow =(e)=>{
     .then(res =>{
     
      alert(res.data)
-     history.push("/") //GOINF BACK TO LOG IN PAGE
+     history.push("/createOfficial") //GOINF BACK TO LOG IN PAGE
    
     })
     .catch(err =>{
@@ -67,14 +67,10 @@ useEffect(() => {
 
 
 ///IF THE USER SUCCESSFULLY LOG IN , IT CANNOT GO BACK TO THE LOG IN PAGE
-if(localStorage.getItem('userToken')!=null){
- history.push("/form")
-}
-
-
-if(localStorage.getItem('verifyToken')==null){
+   //    ///CHECKING IF USER IS SK AND  AUTHENTICATED WITH TOKEN
+   if(localStorage.getItem('sk')==null){
     history.push("/")
-}
+   }
 
 
 
