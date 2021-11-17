@@ -185,12 +185,17 @@ function CreateOfficial() {
     console.log(errorList)
 
 
-      Axios.post("http://localhost:5000/add", {
+      Axios.post("http://localhost:5000/add",
+      
+      {
+      
         fullname: fullname,
         email: email,
         password: password,
         position: position,
         contactNumber: contactNumber,
+        headers: { "x-access-token": localStorage.getItem('sk') }, 
+       
       })
         .then((res) => {  
 
@@ -238,9 +243,13 @@ function CreateOfficial() {
 
 
     if (isLoaded) {
-      Axios.post("http://localhost:5000/displayOfficial",
+      Axios.get("http://localhost:5000/displayOfficial",
 
-        { headers: { "x-access-token": localStorage.getItem('userToken') }, email: localStorage.getItem("Email") }
+        {
+           headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
+          
+          
+        }
 
       )
 
@@ -262,9 +271,6 @@ function CreateOfficial() {
 
 
  
-
-
-
 
   ///ATTENDANCE TABLE
 

@@ -276,7 +276,7 @@ function Travel() {
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
       renderCell: (data) => (
         <strong>
-          <Link to={`/View/${data.row._id}`}>
+          <Link to={`/ManageTravelasOfficial/${data.row._id}`}>
             {" "}
             <i
               className="bi bi-eye-fill"
@@ -478,11 +478,11 @@ function Travel() {
                                <option value="" hidden>
                                   Select Position
                                 </option>
-                               <option value="One">Official</option>
-                              <option value="Two">Secretary</option>
-                              <option alue="Three">Treasurer</option>
-                              <option alue="Three">Brgy.Captain</option>
-                              <option alue="Three">Sangguniang Kabataan</option>
+                                <option value="Official">Official</option>
+                              <option value="Secretary">Secretary</option>
+                              <option alue="Treasure">Treasurer</option>
+                              <option alue="Brgy.Captain">Brgy.Captain</option>
+                              <option alue="Sangguniang Kabataan">Sangguniang Kabataan</option>
                             </select>
                             <small
                               id="emailHelp"

@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //route
 import { useEffect } from "react"; //a hook that GIVES  "side-effects"
 import { useHistory } from "react-router-dom"; // allows us to access our path / route history.
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/view.css";
 //IMPORT FOR THE TOASTIFY
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +30,12 @@ function Delete() {
   // IF PAGE IS LOADED THEN THIS WILL HAPPEN WITH THE USE OF useEffect
   useEffect(() => {
     if (isLoaded) {
-      Axios.post(`http://localhost:5000/viewOfficial/${userId}`,).then(
+      Axios.post(`http://localhost:5000/viewOfficial/${userId}`,{
+        headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
+
+      }
+      
+      ).then(
         (response) => {
           setUserDetails(response.data);
         }
@@ -54,7 +61,10 @@ function Delete() {
       });
 
        ////DELETE DATA ON DATABASE------------------------------------------
-      Axios.delete(`http://localhost:5000/deleteOfficial/${userId}`).then(
+      Axios.delete(`http://localhost:5000/deleteOfficial/${userId}`,{
+        headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
+
+      }).then(
         (response) => {
           console.log("User Deleted Successfully!");
           history.push("/createOfficial"); //GOING BACK TO HOME PAGE / MAIN PAGE

@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom"; // allows us to access our path /
 
 import Axios from "axios"; //allows us to make GET and POST requests from the browser.
 
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./css/all.css"
 
@@ -48,8 +49,7 @@ const loginNow =(e)=>{
         localStorage.setItem("Official", res.data.token);
         localStorage.setItem("Email", res.data.email);
         history.push(`/Dashboard`); 
-       } else if(res.data.position =="sk"){
-        
+       } else if(res.data.position =="sk"){       
         localStorage.setItem("sk", res.data.token);
         localStorage.setItem("Email", res.data.email);
         history.push(`/skDashboard`); 

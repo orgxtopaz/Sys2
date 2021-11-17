@@ -207,7 +207,7 @@ function Travel() {
     if (isLoaded) {
       Axios.post("http://localhost:5000/travelLog",
 
-        { headers: { "x-access-token": localStorage.getItem('userToken') }, email: localStorage.getItem("Email") }
+        { headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email") }
 
       )
 
@@ -487,11 +487,11 @@ function Travel() {
                             <option value="" hidden>
                                   Select Position
                                 </option>
-                               <option value="One">Official</option>
-                              <option value="Two">Secretary</option>
-                              <option alue="Three">Treasurer</option>
-                              <option alue="Three">Brgy.Captain</option>
-                              <option alue="Three">Sangguniang Kabataan</option>
+                               <option value="Official">Official</option>
+                              <option value="Secretary">Secretary</option>
+                              <option alue="Treasure">Treasurer</option>
+                              <option alue="Brgy.Captain">Brgy.Captain</option>
+                              <option alue="Sangguniang Kabataan">Sangguniang Kabataan</option>
                             </select>
                             <small
                               id="emailHelp"

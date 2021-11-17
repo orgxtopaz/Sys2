@@ -28,7 +28,10 @@ function Delete() {
   // IF PAGE IS LOADED THEN THIS WILL HAPPEN WITH THE USE OF useEffect
   useEffect(() => {
     if (isLoaded) {
-      Axios.post(`http://localhost:5000/viewTravel/${travelId}`,).then(
+      Axios.post(`http://localhost:5000/viewTravel/${travelId}`,{
+        headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
+
+      }).then(
         (response) => {
           setTravelDetails(response.data);
         }
@@ -54,7 +57,10 @@ function Delete() {
       });
 
        ////DELETE DATA ON DATABASE------------------------------------------
-      Axios.delete(`http://localhost:5000/deleteTravel/${travelId}`).then(
+      Axios.delete(`http://localhost:5000/deleteTravel/${travelId}`,{
+        headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
+
+      }).then(
         (response) => {
           console.log("User Deleted Successfully!");
           history.push("/skTravel"); //GOING BACK TO HOME PAGE / MAIN PAGE

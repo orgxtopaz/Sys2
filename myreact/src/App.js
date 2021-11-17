@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { BrowserRouter as Router, Route} from "react-router-dom"; //routes
-import Forms from "./components/userAuth/Forms";
 
 import Login from "./components/login";
 
@@ -14,13 +13,14 @@ import Login from "./components/login";
 
 
 import Update from "./components/Update";
-import View from "./components/View";
 
 
 // FOR OFFICIALS
 import Organizational from "./components/userAuth/OrganizationalChart";
 import Travel from "./components/userAuth/TravelPage";
 import Dashboard from "./components/userAuth/Dashboard";
+import viewTravelAsOfficial from "./components/userAuth/viewTravelAsOfficial";
+
 
 ///FOR SK OFFICIALS
 import skDashboard from "./components/skAuth/Dashboard";
@@ -63,8 +63,6 @@ function App() {
             {/* ROUTES LANG SAKALAM */}
             <Route exact path="/" component={Login} />
 
-            <Route exact path="/Form/" component={Forms} />
-            <Route exact path="/View/:viewId" component={View} />
             <Route exact path="/Update/:updateId" component={Update} />
 
 
@@ -74,6 +72,8 @@ function App() {
             <Route exact path="/Dashboard" component={Dashboard} />
             <Route exact path="/Organizational" component={Organizational} />
             <Route exact path="/Travel" component={Travel} />
+            <Route exact path="/ManageTravelasOfficial/:viewId" component={viewTravelAsOfficial} />
+
 
 
             {/* FOR SK OFFICIAL */}
@@ -84,6 +84,8 @@ function App() {
             <Route exact path="/verify/:userId" component={Verify} />
             <Route exact path="/deleteOfficial/:userId" component={DeleteOfficial} />
             <Route exact path="/deleteTravel/:travelId" component={DeleteTravel} />
+
+
 
 
 
