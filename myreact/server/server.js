@@ -324,10 +324,9 @@ migzapp.post(
 
 
 
+
+
 migzapp.use('/',UserRouter); //
-
-
-
 
 const uri = process.env.ATLAS_URI; // getting the datas in the .env which is the mongo database
 

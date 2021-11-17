@@ -30,7 +30,7 @@ function Delete() {
   // IF PAGE IS LOADED THEN THIS WILL HAPPEN WITH THE USE OF useEffect
   useEffect(() => {
     if (isLoaded) {
-      Axios.post(`http://localhost:5000/viewOfficial/${userId}`,{
+      Axios.get(`http://localhost:5000/viewOfficial/${userId}`,{
         headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
 
       }

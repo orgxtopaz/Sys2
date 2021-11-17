@@ -48,18 +48,23 @@ const verifyJWT = (req, res, next) => {
 router.put('/verify/', verifyLogin); ///VERIFIED UPON CREATING  
 router.post('/login/', Login); //OFFICIALS LOG IN  
 
+///SK ADDITIONAL FUNCTIONALITIES
 router.get('/displayOfficial',verifyJWT, displayOfficial); ///DISPLAY ALL OFFICIAL 
-router.post('/viewOfficial/:id',viewSpecificOfficial); ///VIEW SPECIFIC OFFICIAL 
-router.delete('/deleteOfficial/:id',deleteSpecificOfficial); ///DELETE SPECIFIC OFFICIAL 
+router.get('/viewOfficial/:id',verifyJWT, viewSpecificOfficial); ///VIEW SPECIFIC OFFICIAL 
+router.delete('/deleteOfficial/:id',verifyJWT, deleteSpecificOfficial); ///DELETE SPECIFIC OFFICIAL 
 
+
+////ALL OFFICIALS FUNCTIONALITIES
 router.post('/timeIn',timeIn); ///TIME IN  
 router.put('/timeOut',timeOut); ///TIME OUT 
-
 router.post('/Attendance',displayAttendance); ///DISPLAY SPECIFIC ATTENDANCE 
 
 router.post('/travelLog',displaySpecificTravelLog); ///DISPLAY SPECIFIC  TRAVEL LOG 
 router.post('/viewTravel/:id',viewSpecificTravelLog); ///VIEW SPECIFIC TRAVEL LOG 
 router.delete('/deleteTravel/:id',deleteSpecificTravelLog); ///DELETE SPECIFIC TRAVEL LOG 
+
+
+
 
 
 
