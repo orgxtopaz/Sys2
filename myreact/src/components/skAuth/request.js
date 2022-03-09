@@ -129,7 +129,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CreateOfficial() {
+function Request() {
 
 
 
@@ -368,7 +368,7 @@ function CreateOfficial() {
           </IconButton>
 
           <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            TRAVEL LOG BOROTOY MADAFUCKING SYSTEM
+            REQUEST LOG BOROTOY MADAFUCKING SYSTEM
           </Typography>
 
         </Toolbar>
@@ -423,12 +423,6 @@ function CreateOfficial() {
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
-            <br></br>
-            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-currency-dollar"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
-            </Link>
            
 
 
@@ -449,7 +443,7 @@ function CreateOfficial() {
         {/* ADD BUTTON TRAVEL LOG */}
         <div>
           <Button variant="outlined" onClick={handleClickOpen}>
-            Create Official Account
+            Download all data request
       </Button>
           <br></br>
           <br></br>
@@ -667,4 +661,4 @@ function CreateOfficial() {
 
   );
 }
-export default CreateOfficial;
+export default Request;

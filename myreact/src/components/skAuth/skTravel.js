@@ -197,7 +197,7 @@ function Travel() {
 
 
 
-  /////FETCHING THE OFFICIAL ATTENDANCE DATA SPECIFIC
+  /////FETCHING THE OFFICIAL ATTENDANCE DATA 
 
   const [AttendanceList, setTravelList] = useState([]);
   const isLoaded = [true];
@@ -205,7 +205,7 @@ function Travel() {
 
 
     if (isLoaded) {
-      Axios.post("http://localhost:5000/travelLog",
+      Axios.post("http://localhost:5000/displayAllTravel",
 
         { headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email") }
 
@@ -239,6 +239,13 @@ function Travel() {
 
   let columns = [
     {
+      field: `fullname`,
+      headerName: "FullName",
+      width: 130,
+      className: "userId",
+      headerAlign: "center",
+    },
+    {
       field: `_id`,
       headerName: "Travel Log Number",
       width: 130,
@@ -268,7 +275,7 @@ function Travel() {
 
     {
       field: "actionview",
-      headerName: "VIEW",
+      headerName: "Manage",
       width: 122,
       //grid renders values into the cells as strings
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
@@ -384,7 +391,12 @@ function Travel() {
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
 
-        
+            <br></br>
+            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
+              className="bi bi-currency-dollar"
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
+            </Link>
 
 
           </div>

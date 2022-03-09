@@ -9,6 +9,10 @@ const timeIn =async (req, res) => {
     const date = req.body.date;
     const timeIn = req.body.timeIn;
     const timeOut = req.body.timeOut;
+    const fullname = req.body.fullname;
+
+
+
     const totalHours = null;
     console.log(email)
   
@@ -29,7 +33,7 @@ const timeIn =async (req, res) => {
   
         if (attendance.length > 0) {
           console.log(attendance)
-  
+          
           res.status(400).json({ message: "You already Time In!" })
   
         } else {
@@ -40,7 +44,9 @@ const timeIn =async (req, res) => {
             timeIn,
             timeOut,
             totalHours,
-            date
+            date,
+            fullname,
+           
   
           }); // Instantiate the User in user.model
   

@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dashboard() {
+function SecretaryDashboard() {
 
 
 
@@ -116,13 +116,12 @@ function Dashboard() {
 
 
       email: localStorage.getItem("Email"),
+      fullname: localStorage.getItem("fullname"),
+      position: localStorage.getItem("position"),
+
       timeIn: DateandTimeIn,
       timeOut: null,
-      date: date,
-      fullname: localStorage.getItem("fullname"),
-      
-
-
+      date: date
 
 
     })
@@ -197,6 +196,8 @@ function Dashboard() {
   /////FETCHING THE OFFICIAL ATTENDANCE DATA SPECIFIC
   
   const [AttendanceList, setAttendanceList] = useState([]);
+  const [allAttendanceList, setallAttendanceList] = useState([]);
+
   const isLoaded = [true];
   useEffect(() => {
  
@@ -212,6 +213,25 @@ function Dashboard() {
       .then((response) => {
         setAttendanceList(response.data);
 
+        Axios.post("http://localhost:5000/displayAllAttendance", 
+
+        { headers: { "x-access-token":localStorage.getItem('secretary') },email:localStorage.getItem("Email")}
+        
+        )
+      
+        
+        .then((response) => {
+          setallAttendanceList(response.data);
+  
+       
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+
+
+
+
      
       })
       .catch((error) => {
@@ -223,10 +243,18 @@ function Dashboard() {
   }, isLoaded);
 
 
+
+
+
+
+
+  
+
+
    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
   
    let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-   if(localStorage.getItem('Official')==null){
+   if(localStorage.getItem('secretary')==null){
     history.push("/")
    }
 
@@ -291,6 +319,61 @@ function Dashboard() {
    
   ];
 
+
+  ///////////// ALL OFFICIALS ATTENDANCE
+
+    ///ATTENDANCE TABLE
+
+
+    let allAttendance = [
+   
+        {
+          field: "fullname",
+          headerName: "Fullname",
+          width: 140,
+          headerAlign: "center",
+        },
+        {
+          field: "timeOut",
+          headerName: "Time Out",
+          width: 140,
+          headerAlign: "center",
+        },
+        {
+          field: "totalHours",
+          headerName: "Total Hours",
+          width: 100,
+          headerAlign: "center",
+          headerClassName: "super-app-theme--header",
+        },
+        {
+          field: "position",
+          headerName: "Position",
+          width: 130,
+          headerAlign: "center",
+        },
+    
+        {
+          field: "actionview",
+          headerName: "VIEW",
+          width: 122,
+          //grid renders values into the cells as strings
+          // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
+          renderCell: (data) => (
+            <strong>
+              <Link to={`/View/${data.row._id}`}>
+                {" "}
+                <i
+                  className="bi bi-eye-fill"
+                  style={{ fontSize: "20px", color: "#343a40" }}
+                ></i>
+              </Link>
+            </strong>
+          ),
+        }
+       
+      ];
+
   return (
 
     <div className={classes.root}>
@@ -315,7 +398,7 @@ function Dashboard() {
           </IconButton>
 
           <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            OFFICIALLLL DASHBOARDDDDDDDDDDD
+            SECRETARYYYYY DASHBOARDS
           </Typography>
 
         </Toolbar>
@@ -426,6 +509,27 @@ function Dashboard() {
 
 
 
+       {/* ALL OFFICIALS ATTENDANCE */}
+       <br></br>
+       <br></br>
+       <br></br>
+
+       <div style={{ height: 400, width: '70%' }}>
+
+
+            <DataGrid
+            rows={allAttendanceList}
+            columns={allAttendance}
+            getRowId={(row) => row._id}
+            pageSize={5}
+
+
+            // checkboxSelection
+            />
+            </div>
+
+
+
       </main>
     </div>
 
@@ -433,4 +537,4 @@ function Dashboard() {
 
   );
 }
-export default Dashboard;
+export default SecretaryDashboard;

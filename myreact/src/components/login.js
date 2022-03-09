@@ -48,11 +48,26 @@ const loginNow =(e)=>{
         console.log(res.data)
         localStorage.setItem("Official", res.data.token);
         localStorage.setItem("Email", res.data.email);
+        localStorage.setItem("fullname", res.data.fullname);
+        localStorage.setItem("position", res.data.position);
         history.push(`/Dashboard`); 
        } else if(res.data.position =="sk"){       
         localStorage.setItem("sk", res.data.token);
         localStorage.setItem("Email", res.data.email);
+        localStorage.setItem("fullname", res.data.fullname);
+        localStorage.setItem("position", res.data.position);
+
+
         history.push(`/skDashboard`); 
+       }
+       else if(res.data.position =="secretary"){       
+        localStorage.setItem("secretary", res.data.token);
+        localStorage.setItem("Email", res.data.email);
+        localStorage.setItem("fullname", res.data.fullname);
+        localStorage.setItem("position", res.data.position);
+
+
+        history.push(`/secretaryDashboard`); 
        }
 
      }
@@ -71,6 +86,9 @@ if(localStorage.getItem('Official')!=null){
  history.push("/Dashboard")
 }else if(localStorage.getItem('sk')!=null){
   history.push("/skDashboard")
+}
+else if(localStorage.getItem('secretary')!=null){
+  history.push("/secretaryDashboard")
 }
 
  
@@ -92,7 +110,7 @@ if(localStorage.getItem('Official')!=null){
                 <div className="col-lg-6">
                   <div className="p-5">
                     <div className="text-center">
-                      <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                      <h1 className="h4 text-gray-900 mb-4">Welcome Back!sdsdssss</h1>
                     </div>
                     <form className="user">
                       <div className="form-group">

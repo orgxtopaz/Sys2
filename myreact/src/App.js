@@ -22,6 +22,13 @@ import Dashboard from "./components/userAuth/Dashboard";
 import viewTravelAsOfficial from "./components/userAuth/viewTravelAsOfficial";
 
 
+// FOR SECRETARY
+// import Organizational from "./components/userAuth/OrganizationalChart";
+// import Travel from "./components/userAuth/TravelPage";
+import SecretaryDashboard from "./components/secretaryAuth/Dashboard";
+// import viewTravelAsOfficial from "./components/userAuth/viewTravelAsOfficial";
+
+
 ///FOR SK OFFICIALS
 import skDashboard from "./components/skAuth/Dashboard";
 import skTravel from "./components/skAuth/skTravel";
@@ -30,6 +37,7 @@ import createOfficial from "./components/skAuth/createOfficial";
 import Verify from "./components/skAuth/Verified";
 import DeleteOfficial from "./components/skAuth/DeleteOfficial";
 import DeleteTravel from "./components/skAuth/DeleteTravel";
+import Request from "./components/skAuth/request";
 
 
 
@@ -74,6 +82,13 @@ function App() {
             <Route exact path="/Travel" component={Travel} />
             <Route exact path="/ManageTravelasOfficial/:viewId" component={viewTravelAsOfficial} />
 
+            
+            {/* FOR SECRETARY*/}
+            <Route exact path="/secretaryDashboard" component={SecretaryDashboard} />
+            {/* <Route exact path="/Organizational" component={Organizational} />
+            <Route exact path="/Travel" component={Travel} />
+            <Route exact path="/ManageTravelasOfficial/:viewId" component={viewTravelAsOfficial} /> */}
+
 
 
             {/* FOR SK OFFICIAL */}
@@ -84,6 +99,7 @@ function App() {
             <Route exact path="/verify/:userId" component={Verify} />
             <Route exact path="/deleteOfficial/:userId" component={DeleteOfficial} />
             <Route exact path="/deleteTravel/:travelId" component={DeleteTravel} />
+            <Route exact path="/request" component={Request} />
 
 
 

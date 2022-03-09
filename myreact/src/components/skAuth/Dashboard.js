@@ -118,7 +118,9 @@ function Dashboard() {
       email: localStorage.getItem("Email"),
       timeIn: DateandTimeIn,
       timeOut: null,
-      date: date
+      date: date,
+      fullname: localStorage.getItem("fullname"),
+      position: localStorage.getItem("position")
 
 
     })
@@ -197,7 +199,7 @@ function Dashboard() {
   useEffect(() => {
  
      if (isLoaded) {
-      Axios.post("http://localhost:5000/Attendance", 
+      Axios.post("http://localhost:5000/displayAllAttendance", 
 
       { headers: { "x-access-token":localStorage.getItem('sk') },email:localStorage.getItem("Email")}
       
@@ -228,8 +230,8 @@ function Dashboard() {
 
    const logout = (e) => {
     e.preventDefault();
-    window.localStorage.removeItem('sk');
-    window.localStorage.removeItem('Email');
+    localStorage.clear();
+
     window.location.reload();
 
   }
@@ -239,6 +241,14 @@ function Dashboard() {
 
   let columns = [
    
+      
+    {
+      field: "fullname",
+      headerName: "fullname",
+      width: 160,
+      headerAlign: "center",
+    },
+
     {
       field: "timeIn",
       headerName: "Time In",
@@ -347,6 +357,13 @@ function Dashboard() {
             <br></br>
             <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-people-fill"
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
+            </Link>
+            <br></br>
+
+            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
+              className="bi bi-currency-dollar"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
             </Link>

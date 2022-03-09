@@ -4,7 +4,7 @@ const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const attendanceSchema = new Schema({
+const totalattendanceSchema = new Schema({
     fullname:{
      
         type:String,
@@ -21,21 +21,26 @@ const attendanceSchema = new Schema({
       
 
     },
-    timeIn:{
+    position:{
+     
         type:String,
+        trim:true , // removing the first space in value input  
+        unique:false 
+      
+
+    },
+  
+    overallTotalHours:{
+        type:Number,
         trim:true  // removing the first space in value input 
 
     },
-    timeOut:{
-        type:String,
+    overallTotalDays:{
+        type:Number,
         trim:true  // removing the first space in value input 
 
     },
-    totalHours:{
-        type:String,
-        trim:true  // removing the first space in value input 
-
-    },
+    
     
     date:{
         type:String,
@@ -52,6 +57,6 @@ const attendanceSchema = new Schema({
    
 
 
-const Attendance= mongoose.model('attendance',attendanceSchema);
+const exportTotalAttendance= mongoose.model('totalattendance',totalattendanceSchema);
 
-module.exports = Attendance;
+module.exports = exportTotalAttendance;

@@ -189,7 +189,12 @@ function Announcement() {
             </Link>
 
 
-           
+            <br></br>
+            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
+              className="bi bi-currency-dollar"
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
+            </Link>
            
        
       </div>

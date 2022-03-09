@@ -1,6 +1,7 @@
 
 
 let Attendance = require("../models/attendance.model");
+let allAttendance = require("../models/totalAttendance.model");
 
 const timeOut =async (req, res) => {
 ///////////--------------ATTENDANCE TIME OUT-----------------\\\\\\\\\\\\\\\\\\\\\
@@ -53,12 +54,66 @@ Attendance.find({
       }, { $set: { timeOut: timeOut, totalHours: totalHours } }, { new: true }, (err, doc) => {
         if (err) {
           console.log("ALREADY COMPLETED ATTENDANCE");
+
+
+
+
         } else {
           res.status(400).json({ message: "TIME IN AND TIME OUT ALREADY DONE! ENJOY THE REST OF THE DAY" })
+
+
+          
+                ///////////// UPDATING THE OVERALL TOTAL HOURS AND DAYS
+
+                //CHECKING IF USER ALREADY TIME OUT
+                allAttendance.find({
+                $and: [
+
+                  { email: { $eq: email } },
+                
+
+                ]
+              })
+               
+              .then(checkallattendance => {
+
+                if(checkallattendance.length>0){
+
+                 allAttendance.findOneAndUpdate({
+                  $and: [
+          
+                    { email: { $eq: email } }
+                   
+          
+                  ]
+                },
+                
+                
+                { $set: { overallTotalHours:checkallattendance[0].overallTotalHours+8 ,overallTotalDays:checkallattendance[0].overallTotalDays +1 }    }, { new: true }, (err, doc) => {
+                 
+          
+          
+                });
+
+                }
+
+
+              })
+
+            
+             
+
+
+
+          
         }
 
 
       });
+
+
+
+     
 
 
 

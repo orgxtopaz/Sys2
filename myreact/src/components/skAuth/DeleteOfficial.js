@@ -30,7 +30,7 @@ function Delete() {
   // IF PAGE IS LOADED THEN THIS WILL HAPPEN WITH THE USE OF useEffect
   useEffect(() => {
     if (isLoaded) {
-      Axios.get(`http://localhost:5000/viewOfficial/${userId}`,{
+      Axios.post(`http://localhost:5000/viewOfficial/${userId}`,{
         headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
 
       }
@@ -61,7 +61,7 @@ function Delete() {
       });
 
        ////DELETE DATA ON DATABASE------------------------------------------
-      Axios.delete(`http://localhost:5000/deleteOfficial/${userId}`,{
+      Axios.post(`http://localhost:5000/deleteOfficial/${userId}`,{
         headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email")
 
       }).then(
@@ -104,6 +104,90 @@ function Delete() {
       icon: false,
     });
   };
+
+
+
+  /////FUNCTION TO UPDATE USER
+  const [updateContactNumber, setUpdateContactNumber] = useState("");
+  const [updatePassword, setUpdatePassword] = useState("");
+
+
+    const updateUser = () => {
+  
+      function saveUpdate() {
+        toast.success("Official Updated Successfully❗", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: true,
+        });
+  
+         ////UPDATE DATA ON DATABASE------------------------------------------
+    
+        Axios.put(`http://localhost:5000/updateOfficial`,
+  
+        {
+          
+          headers: { "x-access-token":localStorage.getItem('sk'),
+ 
+        
+        },
+        email: localStorage.getItem("Email"),
+        updateContactNumber:updateContactNumber,
+        updatePassword:updatePassword
+
+       
+        }
+        
+        )
+        
+        
+        
+        
+        
+        
+        .then(
+          (response) => {
+            console.log("User Updated Successfully!");
+            history.push("/createOfficial"); //GOING BACK TO HOME PAGE / MAIN PAGE
+            window.location.reload();
+          
+          }
+        );
+      
+      }
+  
+      //----------------------------------
+      const cancel = () => {
+        window.location.reload();
+      };
+  
+      const CustomToast = (closeToast) => {
+        return (
+          <div style={{ width: "300px" }}>
+            <p>Are you sure you want to update the record?</p>
+            <button type="submit" onClick={saveUpdate} className="btn ">
+              <i className="btn  bi bi-check2" style={{ fontSize: "25px" }}></i>
+            </button>
+  
+            <button type="submit" onClick={cancel} className="btn ">
+              <i className="btn  bi bi-x" style={{ fontSize: "25px" }}></i>
+            </button>
+  
+          </div>
+        );
+      };
+  
+      ///--------------------------------
+      toast.info(<CustomToast />, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: false,
+        closeOnClick: false,
+        icon: false,
+      });
+    };
+
+
+
+
    //    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
    if(localStorage.getItem('sk')==null){
     history.push("/")
@@ -156,9 +240,14 @@ function Delete() {
               <input
                 type="text"
                  style={{width:"90%"}}
-                value={"📞 "+userDetails.contactNumber}
+                 
+                 defaultValue={userDetails.contactNumber}
                 className="form-control"
-                readOnly
+              
+
+                onChange={(event) => {
+                  setUpdateContactNumber(event.target.value);
+                }}
               />       
               <p></p>
             
@@ -180,13 +269,45 @@ function Delete() {
               />
             </div>
 
+
+
+
+            <div className="form-group">
+              <input
+                type="text"
+                 style={{width:"90%"}}
+                 
+                 defaultValue={userDetails.password}
+                className="form-control"
+                
+                
+                onChange={(event) => {
+                  setUpdatePassword(event.target.value);
+                }}
+              />       
+              <p></p>
+            
+            </div>
+
+            <button type="submit"  onClick={updateUser} className="btn "  >
+              
+              <i
+            className="btn  bi bi-pencil-square"
+            style={{ fontSize: "25px" }}
+  
+          ></i>
+              </button>
+
             <button type="submit"  onClick={deleteUser} className="btn "  >
+              
             <i
           className="btn  bi bi-trash-fill"
           style={{ fontSize: "25px" }}
 
         ></i>
             </button>
+
+           
           </div>
         </div>
 

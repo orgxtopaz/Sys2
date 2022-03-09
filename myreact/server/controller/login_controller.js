@@ -20,7 +20,7 @@ const login =async (req, res) => {
           })
          
   
-          res.json({ auth: true, token: token, position:user[0].position, email:user[0].email })
+          res.json({ auth: true, token: token, position:user[0].position, email:user[0].email,fullname:user[0].fullname  })
   
         } else {
           res.status(400).json({ auth: false, message: "WALA NI EXIST ANG YATI, PAG CREATE OY" })

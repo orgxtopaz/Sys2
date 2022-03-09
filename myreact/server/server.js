@@ -1,6 +1,7 @@
 
 const UserRouter = require('./routes/user.routes');  //CALL THE ROUTES FOLDER
 let User = require("./models/user.model");
+let totalAttendance = require("./models/totalAttendance.model");
 let travelLog = require("./models/travellogs.model");
 
 
@@ -156,6 +157,29 @@ migzapp.post(
           .save() //PROMISE
           .then((user) => res.json({ verifyToken: verifyToken, email: email, user: user })) // IF TRUE CHECK
           .catch((err) => res.status(400).json("Errors: " + err)); // CATCH THE ERROR
+
+
+
+
+
+
+       ////////////CREATING totalAttendance MODEL WITH THE SAME DETAILS.
+       const  overallTotalHours =0;
+       const overallTotalDays =0;
+
+        const newtotalAttendance = new totalAttendance({
+          fullname,
+          email,
+          overallTotalHours,
+          position,
+          overallTotalDays
+        }); // Instantiate the User in user.model
+
+
+
+         newtotalAttendance .save() //PROMISE
+       
+
 
       }
     } catch (err) {
