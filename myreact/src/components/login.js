@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //route
 
 import { useHistory } from "react-router-dom"; // allows us to access our path / route history.
 
-
+import loginImage from './img/login.svg' // relative path to image 
 import Axios from "axios"; //allows us to make GET and POST requests from the browser.
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -91,73 +91,74 @@ else if(localStorage.getItem('secretary')!=null){
   history.push("/secretaryDashboard")
 }
 
- 
-    return (
-        <>
-        <div>
-    
+return (
+  <>
+  <div>
+
 
 <div className="row justify-content-center">
-        <div className="col-xl-10 col-lg-12 col-md-9">
-          <div className="card o-hidden border-0 shadow-lg my-5">
-            <div className="card-body p-0">
-              {/* Nested Row within Card Body */}
-              <div className="row">
-                <div className="col-lg-6 d-none d-lg-block bg-login-image" >
-                 <img style={{width:"90%",height:"auto"}} src="https://c4.wallpaperflare.com/wallpaper/62/567/629/joker-batman-heath-ledger-wallpaper-preview.jpg"></img>
+  <div className="col-xl-10 col-lg-12 col-md-9">
+    <div className="card o-hidden border-0 shadow-lg my-5">
+      <div className="card-body p-0">
+        {/* Nested Row within Card Body */}
+        <div className="row">
+          <div className="col-lg-6 d-none d-lg-block bg-login-image">
+           <img style={{width:"100%",height:"auto",marginBottom:"-50%"}} src={loginImage} alt="image1"></img>
 
+          </div>
+          <div className="col-lg-6">
+            <div className="p-5">
+              <div className="text-center">
+                <h1 className="h4 mb-4" style={{color: "#2CA555"}}>WELCOME  !</h1>
+              </div>
+              <form className="user">
+                <div className="form-group">
+                  <input type="email" style={{borderColor: "#2CA555"}} className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."
+                   onChange={(event) => {
+                    setEmail(event.target.value)}} />
+                </div> 
+                <div className="form-group">
+                  <input type="password" style={{borderColor: "#2CA555"}} className="form-control form-control-user" id="exampleInputPassword" placeholder="Password" 
+
+                  onChange={(event) => {
+                            setPassword(event.target.value)}} />
                 </div>
-                <div className="col-lg-6">
-                  <div className="p-5">
-                    <div className="text-center">
-                      <h1 className="h4 text-gray-900 mb-4">Welcome Back!sdsdssss</h1>
-                    </div>
-                    <form className="user">
-                      <div className="form-group">
-                        <input type="email" className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..."
-                         onChange={(event) => {
-                          setEmail(event.target.value)}} />
-                      </div> 
-                      <div className="form-group">
-                        <input type="password" className="form-control form-control-user" id="exampleInputPassword" placeholder="Password" 
-
-                        onChange={(event) => {
-                                  setPassword(event.target.value)}} />
-                      </div>
-                      <div className="form-group">
-                        <div className="custom-control custom-checkbox small">
-                          <input type="checkbox" className="custom-control-input" id="customCheck" />
-                          <label className="custom-control-label" htmlFor="customCheck">Remember
-                            Me</label>
-                        </div>
-                      </div>
-                      <button onClick={loginNow} className="btn btn-primary btn-user btn-block">
-                        Login
-                      </button>
-                      <hr />
-                     
-                    </form>
-            
-                    <div className="text-center">
-                      <a className="small" href="forgot-password.html">Forgot Password?</a>
-                    </div>
-
-                    <div className="text-center">
-                      <a className="small" href="/register">Create an Account!</a>
-                    </div>
-                    
+                <div className="form-group">
+                  <div className="custom-control custom-checkbox small">
+                    <input type="checkbox" className="custom-control-input" id="customCheck" />
+                    <label className="custom-control-label"  htmlFor="customCheck">Remember
+                      Me</label>
                   </div>
                 </div>
+                <center>
+                <button onClick={loginNow} className="btn btn-success btn-user btn-block" style={{width:"60%"}}>
+                  Login
+                </button>
+                </center>
+                <hr />
+               
+              </form>
+      
+              <div className="text-center">
+                <a className="small" href="forgot-password.html" style={{color: "#2CA555"}}>Forgot Password?</a>
               </div>
+
+              <div className="text-center">
+                <a className="small" href="/register" style={{color: "#2CA555"}} >Create an Account!</a>
+              </div>
+              
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-            
-        </div>
-        </>
-    )
+      
+  </div>
+  </>
+)
 }
 
 export default Login

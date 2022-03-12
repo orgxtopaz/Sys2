@@ -63,6 +63,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    '& .headColor': {       backgroundColor: '#2CA555',       color: 'white'     },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -81,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -244,6 +246,7 @@ function Travel() {
       width: 130,
       className: "userId",
       headerAlign: "center",
+      headerClassName: 'headColor'
     },
     {
       field: `_id`,
@@ -251,6 +254,7 @@ function Travel() {
       width: 130,
       className: "userId",
       headerAlign: "center",
+      headerClassName: 'headColor'
     },
  
     {
@@ -258,6 +262,7 @@ function Travel() {
       headerName: "Position",
       width: 130,
       headerAlign: "left",
+      headerClassName: 'headColor'
     },
     {
       field: "purpose",
@@ -265,18 +270,21 @@ function Travel() {
       width: 100,
       headerAlign: "left",
       headerClassName: "super-app-theme--header",
+      headerClassName: 'headColor'
     },
     {
       field: "date",
       headerName: "Date",
       width: 130,
       headerAlign: "left",
+      headerClassName: 'headColor'
     },
 
     {
       field: "actionview",
       headerName: "Manage",
       width: 122,
+      headerClassName: 'headColor',
       //grid renders values into the cells as strings
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
       renderCell: (data) => (
@@ -300,7 +308,7 @@ function Travel() {
     history.push("/")
    }
 
-  return (
+   return (
 
     <div className={classes.root}>
       <Helmet>
@@ -391,12 +399,7 @@ function Travel() {
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
 
-            <br></br>
-            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-currency-dollar"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
-            </Link>
+        
 
 
           </div>
@@ -426,7 +429,7 @@ function Travel() {
             onClose={saveTravelLog}
             TransitionComponent={Transition}
           >
-            <AppBar sx={{ position: 'relative' }}>
+            <AppBar sx={{ position: 'relative' }} style={{backgroundColor:"#F8F8F8", color: "black"}}>
               <Toolbar>
                 <IconButton
                   edge="start"
@@ -451,16 +454,17 @@ function Travel() {
               <div style={{ marginTop: "50px" }}>
                 <div className="row d-flex justify-content-center align-items-center h-100">
                   <div className="col-lg-8 col-xl-6">
+                  <center>
                     <div className="card rounded-3">
                       <img src="https://pilipinaspopcorn.com/wp-content/uploads/2017/03/M._Cuenco_Avenue_Cebu_City_-_panoramio-1280x720.jpg" className="w-100" style={{ borderTopLeftRadius: '.3rem', borderTopRightRadius: '.3rem' }} alt="Sample photo" />
                       <div className="card-body p-4 p-md-5">
                         <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Travel Details</h3>
                         <form className="px-md-2">
                           <div className="form-outline mb-4">
-                            <input type="text" className="form-control" onChange={(event) => {
+                            <input type="text" className="form-control"  onChange={(event) => {
                               setFullname(event.target.value);
                             }} />
-                            <label className="form-label" htmlFor="form3Example1q">Name</label>
+                            <label className="form-label" htmlFor="form3Example1q" style={{color:"#2CA555", borderColor:"black"}}>Name</label>
                             {/* FOR THE ERROR OF FULLNAME */}
                             <small
                               id="emailHelp"
@@ -473,7 +477,7 @@ function Travel() {
                           <div className="row">
                             <div className="col-md-6 mb-4">
                               <div className="form-outline datepicker">
-                                <input type="date" className="form-control" id="exampleDatepicker1" placeholder="Date" onChange={(event) => {
+                                <input type="date" className="form-control" style={{color:"#2CA555"}} id="exampleDatepicker1" placeholder="Date" onChange={(event) => {
                                   setDate(event.target.value);
                                 }} />
                                 <label htmlFor="exampleDatepicker1" className="form-label"></label>
@@ -492,11 +496,11 @@ function Travel() {
                           <div className="form-outline mb-4">
                            
 
-                            <select className="form-select" aria-label="Default select example" 
+                            <select className="form-select" style={{color:"#2CA555"}} aria-label="Default select example" 
                              onChange={(event) => {
                                   setPosition(event.target.value);
                                 }}>
-                            <option value="" hidden>
+                            <option value="" hidden >
                                   Select Position
                                 </option>
                                <option value="Official">Official</option>
@@ -520,7 +524,7 @@ function Travel() {
                                 <input type="text" id="form3Example1w" className="form-control" onChange={(event) => {
                                   setPurpose(event.target.value);
                                 }} />
-                                <label className="form-label" htmlFor="form3Example1w">Purpose</label>
+                                <label className="form-label" style={{color:"#2CA555"}} htmlFor="form3Example1w">Purpose</label>
                                 {/* FOR THE ERROR OF FULLNAME */}
                                 <small
                                   id="emailHelp"
@@ -535,6 +539,7 @@ function Travel() {
                           <div class="form-check">
                             <input
                               class="form-check-input"
+                              style={{borderColor:"#2CA555"}}
                               type="checkbox"
                               value=""
                               id="flexCheckDefault"
@@ -546,10 +551,12 @@ function Travel() {
                           </div>
                           <br></br>
 
-                          <button type="submit" onClick={submitTravel} className="btn btn-success btn-lg mb-1">Submit</button>
+                          <button type="submit" onClick={submitTravel} className="btn btn-success btn-lg mb-1" style={{backgroundColor:"#2CA555"}}>Submit</button>
                         </form>
                       </div>
+
                     </div>
+                    </center>
                   </div>
                 </div>
               </div>

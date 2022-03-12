@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -131,8 +132,8 @@ function Announcement() {
             <MenuIcon />
           </IconButton>
           
-          <Typography variant="h6" noWrap style={{paddingLeft:"300px"}} >
-           Announcement BOROTOY MADAFUCKING SYSTEM
+          <Typography variant="h6" noWrap style={{paddingLeft:"300px",color:"black"}} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
       
         </Toolbar>
@@ -170,8 +171,8 @@ function Announcement() {
 
             <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Officials</span>
             </Link>
 
             <br></br>
@@ -185,15 +186,15 @@ function Announcement() {
             <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-people-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official </span>
             </Link>
 
 
             <br></br>
             <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-currency-dollar"
+              className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
             </Link>
            
        

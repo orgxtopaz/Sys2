@@ -18,59 +18,63 @@ import Axios from "axios"; //allows us to make GET and POST requests from the br
 import { useParams } from "react-router-dom"; // returns: an object of key/value pairs of URL parameters
 
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/all.css"
+
+import "../css/register.css"
 
 
 function Verify() {
 
-//STORING/GETTING EMAIL OF THE USER WHICH IS STORED ON LOCALSTORAGE
-const userEmail=localStorage.getItem('emailToken')
+    //STORING/GETTING EMAIL OF THE USER WHICH IS STORED ON LOCALSTORAGE
+    const userEmail = localStorage.getItem('emailToken')
 
 
-let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
- 
- const [code, setCode] = useState("");
+    let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
+
+    const [code, setCode] = useState("");
 
 
 
- let {userId} = useParams()
+    let { userId } = useParams()
 
-const verifiedNow =(e)=>{
-    e.preventDefault();
+    const verifiedNow = (e) => {
+        e.preventDefault();
 
-    console.log(userId)
-    const data ={
-        code: code,
-        email: userEmail,
-        userId:userId
+        console.log(userId)
+        const data = {
+            code: code,
+            email: userEmail,
+            userId: userId
+        }
+
+        Axios.put("http://localhost:5000/verify", data)
+
+            .then(res => {
+
+                alert(res.data)
+                history.push("/createOfficial") //GOINF BACK TO LOG IN PAGE
+
+            })
+            .catch(err => {
+                alert(err.response.data)
+            })
+
     }
-    
-    Axios.put("http://localhost:5000/verify",data)
 
-    .then(res =>{
-    
-     alert(res.data)
-     history.push("/createOfficial") //GOINF BACK TO LOG IN PAGE
-   
-    })
-    .catch(err =>{
-        alert(err.response.data)
-    })
-
-}
-
-const isLoaded = [true];
-useEffect(() => {
-  if (isLoaded) {
-    Axios.get("http://localhost:5000/",{ headers: { Authorization:localStorage.getItem('verifyToken') }})
-  }
-}, isLoaded);
+    const isLoaded = [true];
+    useEffect(() => {
+        if (isLoaded) {
+            Axios.get("http://localhost:5000/", { headers: { Authorization: localStorage.getItem('verifyToken') } })
+        }
+    }, isLoaded);
 
 
-///IF THE USER SUCCESSFULLY LOG IN , IT CANNOT GO BACK TO THE LOG IN PAGE
-   //    ///CHECKING IF USER IS SK AND  AUTHENTICATED WITH TOKEN
-   if(localStorage.getItem('sk')==null){
-    history.push("/")
-   }
+    ///IF THE USER SUCCESSFULLY LOG IN , IT CANNOT GO BACK TO THE LOG IN PAGE
+    //    ///CHECKING IF USER IS SK AND  AUTHENTICATED WITH TOKEN
+    if (localStorage.getItem('sk') == null) {
+        history.push("/")
+    }
 
 
 
@@ -82,31 +86,45 @@ useEffect(() => {
 
     return (
         <>
-        <div>
-        <form>
             <center>
-        <div className="form-group">
-            <h1>VERIFY YOUR EMAIL</h1>
-            <label >Email address</label>
-            <input type="text" className="form-control"  placeholder="Enter email" value={userEmail}  />
-            <small id="emailHelp" className="form-text text-muted"></small>
-        </div>
-        <div className="form-group">
-            <label >Code</label>
-            <input type="text" className="form-control"  placeholder="Code"  onChange={(event) => {
-                                  setCode(event.target.value);
-                                }}/>
-        </div>
-        <div className="form-group form-check">
-            <input type="checkbox" className="form-check-input" />
-            <label className="form-check-label" >xxx</label>
-        </div>
-        <button type="submit" onClick={verifiedNow} className="btn btn-primary">Submit</button>
-        </center>
-        </form>
+                <div>
+                    <br></br>
+                    <br></br>
+                    <h1>VERIFY YOUR EMAIL</h1>
 
-            
-        </div>
+                    <br></br>
+
+                    <form className="user" style={{ width: '60%', backgroundColor: '#5DD185', borderRadius: '2%' }}>
+                        <div className="form-group">
+
+                            <br></br>
+                            <i style={{ fontSize: '4em', color: 'black' }} className="bi bi-shield-lock-fill"></i>
+                            <br></br>
+                            <input type="email" style={{ borderColor: "#2CA555", width: '60%' }} className="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address"
+
+
+                                value={userEmail} />
+                        </div>
+                        <br></br>
+                        <div className="form-group">
+                            <input type="text" style={{ borderColor: "#2CA555", width: '60%' }} className="form-control form-control-user" id="exampleInputPassword" placeholder="Code"
+                                onChange={(event) => {
+                                    setCode(event.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <div className="custom-control custom-checkbox small">
+                                <input type="checkbox" className="custom-control-input" id="customCheck" /> 
+                            </div>
+                        </div>
+                            <button style={{ borderColor: "#2CA555", width: '30%', backgroundColor: '#2CA555', color: 'white' }} type="submit" onClick={verifiedNow} className="btn btn-primary">Verify Account</button>
+                        
+                        <hr />
+
+                    </form>
+                </div>
+            </center>
         </>
     )
 }

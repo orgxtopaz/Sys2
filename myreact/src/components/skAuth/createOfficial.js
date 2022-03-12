@@ -28,6 +28,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //route
 import "../../components/css/all.css"
 
 import "../../components/css/register.css"
+
+import registerImage  from '../img/register.svg' // relative path to image 
+
 import Axios from "axios"; //allows us to make GET and POST requests from the browser.
 
 
@@ -423,12 +426,6 @@ function CreateOfficial() {
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
-            <br></br>
-            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-currency-dollar"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Create Official</span>
-            </Link>
            
 
 
@@ -446,7 +443,7 @@ function CreateOfficial() {
         <br></br>
 
 
-        {/* ADD BUTTON TRAVEL LOG */}
+        {/* ADD BUTTON Create account */}
         <div>
           <Button variant="outlined" onClick={handleClickOpen}>
             Create Official Account
@@ -459,7 +456,7 @@ function CreateOfficial() {
             onClose={saveTravelLog}
             TransitionComponent={Transition}
           >
-            <AppBar sx={{ position: 'relative' }}>
+            <AppBar sx={{ position: 'relative'}} style={{backgroundColor:"#F8F8F8", color: "black"}}>
               <Toolbar>
                 <IconButton
                   edge="start"
@@ -495,7 +492,7 @@ function CreateOfficial() {
             {/* Nested Row within Card Body */}
             <div className="row">
               <div className="col-lg-5 d-none d-lg-block bg-register-image" > 
-              <img style={{width:"93%",height:"auto"}} src="https://c4.wallpaperflare.com/wallpaper/62/567/629/joker-batman-heath-ledger-wallpaper-preview.jpg"></img>
+              <img style={{width:"93%",height:"auto"}}  src={registerImage}></img>
 
               </div>
               <div className="col-lg-7">
@@ -506,7 +503,7 @@ function CreateOfficial() {
                   <form className="user">
                     <div className="form-group row">
                       <div className="col-sm-6 mb-3 mb-sm-0">
-                        <input type="text" className="form-control form-control-user" id="exampleFirstName" placeholder="Full Name"   onChange={(event) => {
+                        <input type="text" className="form-control form-control-user" style={{borderColor: "black"}} id="exampleFirstName" placeholder="Full Name"   onChange={(event) => {
                                   setfullname(event.target.value);
                                 }} name="fullname"/>
 
@@ -522,7 +519,7 @@ function CreateOfficial() {
 
                       </div>
                       <div className="col-sm-6">
-                        <input type="text" className="form-control form-control-user" id="exampleLastName" placeholder="Contact Number"    onChange={(event) => {
+                        <input type="text" className="form-control form-control-user" style={{borderColor: "black"}} id="exampleLastName" placeholder="Contact Number"    onChange={(event) => {
                                   setContactNumber(event.target.value);
                                 }}
                                 name="contactNumber" />
@@ -539,7 +536,7 @@ function CreateOfficial() {
                       </div>
                     </div>
                     <div className="form-group">
-                      <input type="text" className="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address"   onChange={(event) => {
+                      <input type="text" className="form-control form-control-user" style={{borderColor: "black"}} id="exampleInputEmail" placeholder="Email Address"   onChange={(event) => {
                                   setEmail(event.target.value);
                                 }}
                                 required
@@ -558,7 +555,7 @@ function CreateOfficial() {
                     <div className="form-group row">
                       <div className="col-sm-6 mb-3 mb-sm-0">
                         
-                        <input type="password"  className="form-control form-control-user" id="exampleInputPassword" placeholder="Password"    onChange={(event) => {
+                        <input type="password"  className="form-control form-control-user" style={{borderColor: "black"}} id="exampleInputPassword" placeholder="Password"    onChange={(event) => {
                                   setPassword(event.target.value);
                                 }}
                                 name="password"  />
@@ -579,7 +576,7 @@ function CreateOfficial() {
 
                       <select
                              
-                                className="form-select "
+                                className="form-select " 
                                 id="inlineFormCustomSelect form3Example4cd"
                                 aria-label="Default select example"
                                 onChange={(event) => {
@@ -587,7 +584,7 @@ function CreateOfficial() {
                                 }}
                                 name="location"
                                 placeholder="sdsd"
-                                style={{height:"50px",borderRadius:"10rem",fontFamily:"'Raleway', sans-serif"}}
+                                style={{ borderColor: "black" ,height:"50px",borderRadius:"10rem",fontFamily:"'Raleway', sans-serif"}}
                               >
                                 <option value="" hidden>
                                   Select POSITION
@@ -614,9 +611,11 @@ function CreateOfficial() {
                       </div>
                      
                     </div>
-                    <button onClick={addUser} className="btn btn-primary btn-user btn-block">
+                    <center>
+                    <button onClick={addUser} className="btn btn-primary btn-user btn-block btn-success" style={{width:"60%"}}>
                       Create Official Account
                     </button>
+                    </center>
                     <hr />
                   
                   </form>
@@ -668,3 +667,11 @@ function CreateOfficial() {
   );
 }
 export default CreateOfficial;
+
+
+
+
+
+
+
+
