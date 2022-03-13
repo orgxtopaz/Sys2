@@ -37,6 +37,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    '& .headColor': {       backgroundColor: '#2CA555',       color: 'white'     },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -205,7 +206,7 @@ function SecretaryDashboard() {
      if (isLoaded) {
       Axios.post("http://localhost:5000/Attendance", 
 
-      { headers: { "x-access-token":localStorage.getItem('Official') },email:localStorage.getItem("Email")}
+      { headers: { "x-access-token":localStorage.getItem('secretary') },email:localStorage.getItem("Email")}
       
       )
     
@@ -213,7 +214,7 @@ function SecretaryDashboard() {
       .then((response) => {
         setAttendanceList(response.data);
 
-        Axios.post("http://localhost:5000/displayAllAttendance", 
+        Axios.post("http://localhost:5000/viewTotalAttendance", 
 
         { headers: { "x-access-token":localStorage.getItem('secretary') },email:localStorage.getItem("Email")}
         
@@ -277,45 +278,35 @@ function SecretaryDashboard() {
       headerName: "Time In",
       width: 140,
       headerAlign: "center",
+      headerClassName: 'headColor'
+
     },
     {
       field: "timeOut",
       headerName: "Time Out",
       width: 140,
       headerAlign: "center",
+      headerClassName: 'headColor'
+
     },
     {
       field: "totalHours",
       headerName: "Total Hours",
       width: 100,
       headerAlign: "center",
-      headerClassName: "super-app-theme--header",
+      headerClassName: 'headColor'
+
     },
     {
       field: "date",
       headerName: "Date",
       width: 130,
       headerAlign: "center",
-    },
+      headerClassName: 'headColor'
 
-    {
-      field: "actionview",
-      headerName: "VIEW",
-      width: 122,
-      //grid renders values into the cells as strings
-      // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
-      renderCell: (data) => (
-        <strong>
-          <Link to={`/View/${data.row._id}`}>
-            {" "}
-            <i
-              className="bi bi-eye-fill"
-              style={{ fontSize: "20px", color: "#343a40" }}
-            ></i>
-          </Link>
-        </strong>
-      ),
     }
+
+  
    
   ];
 
@@ -332,36 +323,53 @@ function SecretaryDashboard() {
           headerName: "Fullname",
           width: 140,
           headerAlign: "center",
+          headerClassName: 'headColor'
+
         },
         {
-          field: "timeOut",
-          headerName: "Time Out",
+          field: "overallTotalDays",
+          headerName: "Total Days Worked",
           width: 140,
           headerAlign: "center",
+          headerClassName: 'headColor'
+
         },
         {
-          field: "totalHours",
+          field: "overallTotalHours",
           headerName: "Total Hours",
           width: 100,
           headerAlign: "center",
-          headerClassName: "super-app-theme--header",
+          headerClassName: 'headColor'
+
         },
         {
           field: "position",
           headerName: "Position",
           width: 130,
           headerAlign: "center",
+          headerClassName: 'headColor'
+
+        },
+        {
+          field: "status",
+          headerName: "Status",
+          width: 130,
+          headerAlign: "center",
+          headerClassName: 'headColor'
+
         },
     
         {
           field: "actionview",
-          headerName: "VIEW",
+          headerName: "Make Request",
           width: 122,
+          headerClassName: 'headColor',
+
           //grid renders values into the cells as strings
           // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
           renderCell: (data) => (
             <strong>
-              <Link to={`/View/${data.row._id}`}>
+              <Link to={`/viewSpecificTotalAttendance/${data.row._id}`}>
                 {" "}
                 <i
                   className="bi bi-eye-fill"
@@ -429,21 +437,21 @@ function SecretaryDashboard() {
 
             <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
 
             </Link>
 
             <br></br>
 
-            <Link to={`/Organizational`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/SecretaryOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
             </Link>
 
             <br></br>
-            <Link to={`/Travel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/secretaryTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>

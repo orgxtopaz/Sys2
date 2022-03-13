@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Travel() {
+function SecretaryTravel() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -207,7 +207,7 @@ function Travel() {
 
 
     if (isLoaded) {
-      Axios.post("http://localhost:5000/displayAllTravel",
+      Axios.post("http://localhost:5000/travelLog",
 
         { headers: { "x-access-token": localStorage.getItem('sk') }, email: localStorage.getItem("Email") }
 
@@ -289,7 +289,7 @@ function Travel() {
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
       renderCell: (data) => (
         <strong>
-          <Link to={`/deleteTravel/${data.row._id}`}>
+          <Link to={`/secretarydeleteTravel/${data.row._id}`}>
             {" "}
             <i
               className="bi bi-eye-fill"
@@ -304,7 +304,7 @@ function Travel() {
 
    //    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
    let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-   if(localStorage.getItem('sk')==null){
+   if(localStorage.getItem('secretary')==null){
     history.push("/")
    }
 
@@ -386,24 +386,13 @@ function Travel() {
             </Link>
 
             <br></br>
-            <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/secretaryTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
 
-            <br></br>
-            <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-people-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
-            </Link>
-            <br></br>
-            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-file-earmark-text"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
-            </Link>
+          
 
         
 
@@ -598,4 +587,4 @@ function Travel() {
 
   );
 }
-export default Travel;
+export default SecretaryTravel;

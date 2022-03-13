@@ -166,18 +166,20 @@ migzapp.post(
        ////////////CREATING totalAttendance MODEL WITH THE SAME DETAILS.
        const  overallTotalHours =0;
        const overallTotalDays =0;
+       const status ="In process";
 
         const newtotalAttendance = new totalAttendance({
           fullname,
           email,
           overallTotalHours,
           position,
-          overallTotalDays
-        }); // Instantiate the User in user.model
+          overallTotalDays,
+          status
+        });
 
 
 
-         newtotalAttendance .save() //PROMISE
+         newtotalAttendance.save() //PROMISE
        
 
 

@@ -89,7 +89,7 @@ Attendance.find({
                 },
                 
                 
-                { $set: { overallTotalHours:checkallattendance[0].overallTotalHours+8 ,overallTotalDays:checkallattendance[0].overallTotalDays +1 }    }, { new: true }, (err, doc) => {
+                { $set: { overallTotalHours:checkallattendance[0].overallTotalHours+totalHours ,overallTotalDays:checkallattendance[0].overallTotalDays +1 }    }, { new: true }, (err, doc) => {
                  
           
           

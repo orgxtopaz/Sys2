@@ -423,11 +423,16 @@ function CreateOfficial() {
             <br></br>
             <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-people-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
            
-
+            <br></br>
+            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
+              className="bi bi-file-earmark-text"
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
+            </Link>
 
           </div>
 

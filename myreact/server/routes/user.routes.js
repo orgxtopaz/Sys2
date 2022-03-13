@@ -9,6 +9,9 @@ const deleteSpecificOfficial = require('../controller/deleteSpecificOfficial_con
 const displayOfficial = require('../controller/displayOfficial_controller');
 const displayAllTravel = require('../controller/viewAllTravel_controller');
 const updateOfficial= require('../controller/updateOfficial_controller');
+const displaySalaryRequest= require('../controller/viewSalaryRequest_controller');
+const viewSpecificRequest= require('../controller/viewSpecificRequest_controller');
+const manageSalaryRequest = require('../controller/manageRequest_controller');
 
 ///////////////////
 
@@ -17,9 +20,15 @@ const updateOfficial= require('../controller/updateOfficial_controller');
 
 const displayAllAttendance = require('../controller/viewAllAttendance_controller');
 
-
-
 //////////////////
+
+/////////// SECRETARY
+const viewTotalAttendance = require('../controller/viewTotalAttendance_controller');
+const viewSpecificTotalAttendance = require('../controller/viewSpecificTotalAttendance_controller');
+const salaryRequest = require('../controller/salaryRequest_controller');
+
+
+// //////////////////
 
 
 const timeIn = require('../controller/timeIn_controller');
@@ -66,24 +75,32 @@ router.post('/login/', Login); //OFFICIALS LOG IN
 
 ///SK ADDITIONAL FUNCTIONALITIES
 router.post('/displayOfficial',verifyJWT, displayOfficial); ///DISPLAY ALL OFFICIAL 
-
 router.post('/displayAllTravel',verifyJWT, displayAllTravel); ///DISPLAY ALL TRAVEL
-
 router.post('/viewOfficial/:id',verifyJWT, viewSpecificOfficial); ///VIEW SPECIFIC OFFICIAL 
 router.post('/deleteOfficial/:id',verifyJWT, deleteSpecificOfficial); ///DELETE SPECIFIC OFFICIAL 
+router.post('/displayAllAttendance',verifyJWT,displayAllAttendance); 
+router.put('/updateOfficial',verifyJWT, updateOfficial);
+router.post('/displaySalaryRequest',verifyJWT, displaySalaryRequest);
+router.post('/viewSpecificRequest/:id',verifyJWT,viewSpecificRequest); /// VIEW SPECIFIC OFFICIALS TOTAL ATTENDANCE DETAILS
+router.post('/manageRequest/',verifyJWT,manageSalaryRequest); /// VIEW SPECIFIC OFFICIALS TOTAL ATTENDANCE DETAILS
 
-router.put('/updateOfficial',verifyJWT, updateOfficial); ///UPDATE SPECIFIC OFFICIAL 
-
-
-
-
-////SK AND SECRETARYYYYY
-router.post('/displayAllAttendance',verifyJWT,displayAllAttendance); ///DISPLAY ALL TRAVEL
-
+/////////////////////////
 
 
 
-///////////////////////
+
+
+
+
+
+/////SECRETARY SEE TOTAL ATTENDANCE DETAILS
+router.post('/viewTotalAttendance',verifyJWT,viewTotalAttendance); ///DISPLAY ALL TOTAL ATTENDANCE 
+router.post('/viewSpecificTotalAttendance/:id',verifyJWT,viewSpecificTotalAttendance); /// VIEW SPECIFIC OFFICIALS TOTAL ATTENDANCE DETAILS
+router.post('/salaryRequest/',verifyJWT,salaryRequest); /// MAKE A SALARY REQUEST
+
+//////////////////////////
+
+
 
 
 
@@ -97,7 +114,7 @@ router.post('/Attendance',displayAttendance); ///DISPLAY SPECIFIC ATTENDANCE
 router.post('/travelLog',displaySpecificTravelLog); ///DISPLAY SPECIFIC  TRAVEL LOG 
 router.post('/viewTravel/:id',viewSpecificTravelLog); ///VIEW SPECIFIC TRAVEL LOG 
 router.delete('/deleteTravel/:id',deleteSpecificTravelLog); ///DELETE SPECIFIC TRAVEL LOG 
-
+///////////////////////////////
 
 
 

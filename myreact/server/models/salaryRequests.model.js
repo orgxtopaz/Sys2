@@ -4,7 +4,7 @@ const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const totalattendanceSchema = new Schema({
+const salaryRequest = new Schema({
     fullname:{
      
         type:String,
@@ -40,8 +40,36 @@ const totalattendanceSchema = new Schema({
         trim:true  // removing the first space in value input 
 
     },
+    overallTotalAbsent:{
+        type:Number,
+        trim:true  // removing the first space in value input 
+
+    },
+    requestTo:{
+        type:String,
+        trim:true  // removing the first space in value input 
+
+    },
+
+
     status:{
         type:String,
+        trim:true  // removing the first space in value input 
+
+    },
+    
+    subject:{
+        type:String,
+        trim:true  // removing the first space in value input 
+
+    },
+    from:{
+        type:String,
+        trim:true  // removing the first space in value input 
+
+    },
+    salary:{
+        type:Number,
         trim:true  // removing the first space in value input 
 
     },
@@ -62,6 +90,6 @@ const totalattendanceSchema = new Schema({
    
 
 
-const exportTotalAttendance= mongoose.model('totalattendance',totalattendanceSchema);
+const exportTotalAttendance= mongoose.model('salaryRequests',salaryRequest);
 
 module.exports = exportTotalAttendance;

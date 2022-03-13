@@ -18,18 +18,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import "bootstrap/dist/css/bootstrap.min.css";
-import Axios from "axios"; //allows us to make GET and POST requests from the browser.
-import { useEffect } from "react"; //a hook that GIVES  "side-effects"
-
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-
-import { useState } from "react"; //HERE we import useState Hook so we can add state to our functional components.
-
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //routes
-
 import { useHistory } from "react-router-dom"; // allows us to access our path / route history.
 
-import "../../components/css/component.css"
+import { BrowserRouter as Router, Route,Link} from "react-router-dom"; //routes
 
 
 const drawerWidth = 240;
@@ -37,7 +28,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    '& .headColor': {       backgroundColor: '#2CA555',       color: 'white'     },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -56,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -97,13 +88,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Request() {
-
-
-
-
-
-
+function SecretaryOrganizational() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -116,121 +101,16 @@ function Request() {
     setOpen(false);
   };
 
+
+  //    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
   
-  /////FETCHING THE OFFICIAL ATTENDANCE DATA SPECIFIC
-  
-  const [AttendanceList, setAttendanceList] = useState([]);
-  const [allAttendanceList, setallAttendanceList] = useState([]);
-
-  const isLoaded = [true];
-  useEffect(() => {
- 
-
-     if (isLoaded) {
-      Axios.post("http://localhost:5000/displaySalaryRequest", 
-
-      { headers: { "x-access-token":localStorage.getItem('sk') },position:localStorage.getItem("position")}
-      
-      )
-    
-      
-      .then((response) => {
-        setAttendanceList(response.data);
-
-
-     
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-    }else{
-      alert("GAdsgsdgd")
-    }
-  }, isLoaded);
-
-
-
-
-
-
-
-  
-
-
-   ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
-  
-   let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-   if(localStorage.getItem('sk')==null){
-    history.push("/")
-   }
-
-
-
-  ///ATTENDANCE TABLE
-
-
-  let columns = [
-   
-    {
-      field: "from",
-      headerName: "From",
-      width: 140,
-      headerAlign: "center",
-      headerClassName: 'headColor'
-
-    },
-    {
-      field: "subject",
-      headerName: "Subject",
-      width: 140,
-      headerAlign: "center",
-      headerClassName: 'headColor'
-
-    },
-    {
-      field: "date",
-      headerName: "Date",
-      width: 100,
-      headerAlign: "center",
-      headerClassName: 'headColor'
-
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 130,
-      headerAlign: "center",
-      headerClassName: 'headColor'
-
-    }, {
-      field: "actionview",
-      headerName: "Manage",
-      width: 122,
-      headerClassName: 'headColor',
-      //grid renders values into the cells as strings
-      // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
-      renderCell: (data) => (
-        <strong>
-          <Link to={`/viewSpecificRequest/${data.row._id}`}>
-            {" "}
-            <i
-              className="bi bi-eye-fill"
-              style={{ fontSize: "20px", color: "#343a40" }}
-            ></i>
-          </Link>
-        </strong>
-      ),
-    }
-
-  
-   
-  ];
-
-
-
+  let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
+  if(localStorage.getItem('secretary')==null){
+   history.push("/")
+  }
 
   return (
-
+  
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
@@ -251,11 +131,11 @@ function Request() {
           >
             <MenuIcon />
           </IconButton>
-
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            SECRETARYYYYY DASHBOARDS
+          
+          <Typography variant="h6" noWrap style={{paddingLeft:"300px",color:"black"}} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
-
+      
         </Toolbar>
       </AppBar>
       <Drawer
@@ -272,17 +152,15 @@ function Request() {
         }}
       >
         <div className={classes.toolbar}>
-       
           <IconButton onClick={handleDrawerClose}>
-            <h1>Official</h1>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         <Divider />
         <List>
-          <div className="sidebar">
+        <div className="sidebar">
 
-          <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
+        <Link to={`/secretaryDashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
@@ -293,79 +171,120 @@ function Request() {
 
             <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Officials</span>
             </Link>
 
             <br></br>
-            <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/secretaryTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
 
-            <br></br>
-            <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-people-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
-            </Link>
+          
+
+          
            
-            <br></br>
-            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-file-earmark-text"
-              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
-            </Link>
-
-
-
-
-
-          </div>
-
+       
+      </div>
+      
         </List>
-
+        
         <Divider />
-
+      
       </Drawer>
       <main className={classes.content}>
-
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <button type="button" className="btn btn-secondary">Download All Data Request</button>
-        <br></br>
-
-        <br></br>
-
- {/* TABLE RENDERED */}
-      <div style={{ height: 400, width: '70%' }}>
-
-          {/* data grid include filtering, columns. */}
-
-          <DataGrid
-            rows={AttendanceList}
-            columns={columns}
-            getRowId={(row) => row._id}
-            pageSize={5}
-      
-
-          // checkboxSelection
-          />
+        <div className={classes.toolbar} />
+        <div className="row">
+        <div className="col-sm-6 col-lg-4">
+          <div className="card" style={{maxWidth: '18rem'}}>
+            <div className="card-header bg-github content-center">
+              <i className="fab fa-github icon text-white my-4 display-4" />
+            </div>
+            <div className="card-body row text-center">
+              <div className="col">
+                <div className="card h-100">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h5 className="card-title" />
+                    <p className="card-text" />
+                  </div>
+                  <div className="card-footer">
+                    <small className="text-muted" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-
-
-
-
-
+        <div className="col-sm-6 col-lg-4">
+          <div className="card" style={{maxWidth: '18rem'}}>
+            <div className="card-header bg-github content-center">
+              <i className="fab fa-github icon text-white my-4 display-4" />
+            </div>
+            <div className="card-body row text-center">
+              <div className="col">
+                <div className="card h-100">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h5 className="card-title" />
+                    <p className="card-text" />
+                  </div>
+                  <div className="card-footer">
+                    <small className="text-muted" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-6 col-lg-4">
+          <div className="card" style={{maxWidth: '18rem'}}>
+            <div className="card-header bg-github content-center">
+              <i className="fab fa-github icon text-white my-4 display-4" />
+            </div>
+            <div className="card-body row text-center">
+              <div className="col">
+                <div className="card h-100">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h5 className="card-title" />
+                    <p className="card-text" />
+                  </div>
+                  <div className="card-footer">
+                    <small className="text-muted">sss</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-6 col-lg-4">
+          <div className="card" style={{maxWidth: '18rem'}}>
+            <div className="card-header bg-github content-center">
+              <i className="fab fa-github icon text-white my-4 display-4" />
+            </div>
+            <div className="card-body row text-center">
+              <div className="col">
+                <div className="card h-100">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
+                  <div className="card-body">
+                    <h5 className="card-title" />
+                    <p className="card-text" />
+                  </div>
+                  <div className="card-footer">
+                    <small className="text-muted" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       </main>
     </div>
-
-
-
+    
   );
 }
-export default Request;
+export default SecretaryOrganizational;
