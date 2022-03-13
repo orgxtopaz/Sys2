@@ -44,30 +44,38 @@ const loginNow =(e)=>{
        //IF AUTH IS = TRUE comes from the backend!
      if (res.data.auth){
 
-       if(res.data.position =="official"){
+       if(res.data.position ==="official"){
         console.log(res.data)
         localStorage.setItem("Official", res.data.token);
         localStorage.setItem("Email", res.data.email);
         localStorage.setItem("fullname", res.data.fullname);
         localStorage.setItem("position", res.data.position);
         history.push(`/Dashboard`); 
-       } else if(res.data.position =="sk"){       
+
+       } else if(res.data.position ==="sk"){       
         localStorage.setItem("sk", res.data.token);
         localStorage.setItem("Email", res.data.email);
         localStorage.setItem("fullname", res.data.fullname);
         localStorage.setItem("position", res.data.position);
-
-
         history.push(`/skDashboard`); 
+
        }
-       else if(res.data.position =="secretary"){       
+       else if(res.data.position ==="secretary"){       
         localStorage.setItem("secretary", res.data.token);
+        localStorage.setItem("Email", res.data.email);
+        localStorage.setItem("fullname", res.data.fullname);
+        localStorage.setItem("position", res.data.position);
+        history.push(`/secretaryDashboard`); 
+       }
+
+       else if(res.data.position ==="treasurer"){       
+        localStorage.setItem("treasurer", res.data.token);
         localStorage.setItem("Email", res.data.email);
         localStorage.setItem("fullname", res.data.fullname);
         localStorage.setItem("position", res.data.position);
 
 
-        history.push(`/secretaryDashboard`); 
+        history.push(`/treasurerDashboard`); 
        }
 
      }
@@ -90,6 +98,10 @@ if(localStorage.getItem('Official')!=null){
 else if(localStorage.getItem('secretary')!=null){
   history.push("/secretaryDashboard")
 }
+else if(localStorage.getItem('treasurer')!=null){
+  history.push("/treasurerDashboard")
+}
+
 
 return (
   <>

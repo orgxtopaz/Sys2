@@ -23,13 +23,24 @@ import viewTravelAsOfficial from "./components/userAuth/viewTravelAsOfficial";
 
 
 // FOR SECRETARY
-
 import SecretaryDashboard from "./components/secretaryAuth/Dashboard";
 import ViewSpecificTotalAttendance from "./components/secretaryAuth/viewSpecificTotalAttendance";
 import SecretaryOrganizational from "./components/secretaryAuth/secretaryOrganizational";
 import SecretaryTravel from "./components/secretaryAuth/secretaryTravel";
 import SecretaryDeleteTravel from "./components/secretaryAuth/secretarydeleteTravel";
-// import viewTravelAsOfficial from "./components/userAuth/viewTravelAsOfficial";
+
+
+
+// FOR TREASURER
+import TreasurerDashboard from "./components/treasurerAuth/Dashboard";
+import TreasurerOrganizational from "./components/treasurerAuth/treasurerOrganizational";
+import TreasurerTravel from "./components/treasurerAuth/treasurerTravel";
+import TreasurerDeleteTravel from "./components/treasurerAuth/treasurerDeleteTravel";
+import TreasurerRequest from "./components/treasurerAuth/treasurerRequest";
+import TreasurerViewSpecificRequest from "./components/treasurerAuth/treasurerViewSpecificRequest";
+
+
+
 
 
 ///FOR SK OFFICIALS
@@ -94,9 +105,21 @@ function App() {
             <Route exact path="/secretaryTravel/" component={SecretaryTravel} />
             <Route exact path="/secretarydeleteTravel/:travelId" component={SecretaryDeleteTravel} />
 
-            {/* <Route exact path="/Organizational" component={Organizational} />
-            <Route exact path="/Travel" component={Travel} />
-            <Route exact path="/ManageTravelasOfficial/:viewId" component={viewTravelAsOfficial} /> */}
+
+
+           {/* FOR TREASURER */}
+           <Route exact path="/treasurerDashboard" component={TreasurerDashboard} />
+           <Route exact path="/treasurerOrganizational/" component={TreasurerOrganizational} />
+           <Route exact path="/treasurerTravel/" component={TreasurerTravel} />
+           <Route exact path="/treasurerdeleteTravel/:travelId" component={TreasurerDeleteTravel} /> 
+           <Route exact path="/treasurerRequest" component={TreasurerRequest} />
+           <Route exact path="/treasurerViewSpecificRequest/:userId" component={TreasurerViewSpecificRequest} />
+
+         
+         
+
+
+
 
 
 

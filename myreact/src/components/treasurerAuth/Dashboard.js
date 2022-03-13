@@ -32,14 +32,6 @@ import { useHistory } from "react-router-dom"; // allows us to access our path /
 import "../../components/css/component.css"
 
 
-////////////////IMPORTS EXCEL CONVERTION
-
-import * as FileSaver from 'file-saver';
-
-import * as XLSX from 'xlsx';
-
-/////////////////////////
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -105,35 +97,86 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Request() {
-
-//////////////////// IMPORT TO EXCEL
-
-const fileName ="Salary Requests Downloaded by SK"
-
-const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-
-const fileExtension = '.xlsx';
+function TreasurerDashboard() {
 
 
 
-const exportToCSV = (csvData, fileName) => {
 
-    const ws = XLSX.utils.json_to_sheet(csvData);
+  ///FUNCTIONS FOR TIME IN AND TIME OUT BUTTON
 
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+  function timeIn() {
 
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    //GENERATE THE CURRENT DATE AND TIME FOR TIME IN
+    const DateandTimeSplit = new Date().toLocaleString().split(",");
+    const DateandTimeIn = new Date().toLocaleString();
 
-    const data = new Blob([excelBuffer], {type: fileType});
+    const date = DateandTimeSplit[0]
 
-    FileSaver.saveAs(data, fileName + fileExtension);
-
-}
-
+    Axios.post("http://localhost:5000/timeIn", {
 
 
-/////////////////////////
+
+      email: localStorage.getItem("Email"),
+      fullname: localStorage.getItem("fullname"),
+      position: localStorage.getItem("position"),
+
+      timeIn: DateandTimeIn,
+      timeOut: null,
+      date: date
+
+
+    })
+      .then((res) => {
+        alert("Time in successfully!")
+
+        // HERE WE WILL FETCH THE ERROR MESSAGE FROM BACK END AND STORE IT IN AN ARRAY!
+      })
+      .catch((err) => {
+
+
+        alert(err.response.data.message)
+
+      })
+
+  }
+
+  function timeOut() {
+    //GENERATE THE CURRENT DATE AND TIME FOR TIME IN
+    const DateandTime = new Date().toLocaleString().split(",");
+
+    const date = DateandTime[0]
+    const DateandTimeOut = new Date().toLocaleString();
+
+    //  const timeOut = DateandTime[1]
+
+    Axios.put("http://localhost:5000/timeOut", {
+
+
+      email: localStorage.getItem("Email"),
+      timeOut: DateandTimeOut,
+      date: date
+
+
+
+    })
+      .then((res) => {
+        alert("Time Out successfully!")
+
+        // HERE WE WILL FETCH THE ERROR MESSAGE FROM BACK END AND STORE IT IN AN ARRAY!
+      })
+      .catch((err) => {
+
+
+        alert(err.response.data.message)
+
+
+
+      })
+
+
+
+
+  }
 
 
 
@@ -153,25 +196,24 @@ const exportToCSV = (csvData, fileName) => {
   
   /////FETCHING THE OFFICIAL ATTENDANCE DATA SPECIFIC
   
-  const [salaryRequest, setSalaryRequest] = useState([]);
+  const [AttendanceList, setAttendanceList] = useState([]);
+  const [allAttendanceList, setallAttendanceList] = useState([]);
 
   const isLoaded = [true];
   useEffect(() => {
  
 
      if (isLoaded) {
-      Axios.post("http://localhost:5000/displaySalaryRequest", 
+      Axios.post("http://localhost:5000/Attendance", 
 
-      { headers: { "x-access-token":localStorage.getItem('sk') },position:localStorage.getItem("position")}
+      { headers: { "x-access-token":localStorage.getItem('secretary') },email:localStorage.getItem("Email")}
       
       )
     
       
       .then((response) => {
-        setSalaryRequest(response.data);
+        setAttendanceList(response.data);
 
-
-     
       })
       .catch((error) => {
         console.error(error)
@@ -193,11 +235,17 @@ const exportToCSV = (csvData, fileName) => {
    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
   
    let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-   if(localStorage.getItem('sk')==null){
+   if(localStorage.getItem('treasurer')==null){
     history.push("/")
    }
 
 
+   const logout = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    window.location.reload();
+
+  }
 
   ///ATTENDANCE TABLE
 
@@ -205,17 +253,25 @@ const exportToCSV = (csvData, fileName) => {
   let columns = [
    
     {
-      field: "from",
-      headerName: "From",
+      field: "timeIn",
+      headerName: "Time In",
       width: 140,
       headerAlign: "center",
       headerClassName: 'headColor'
 
     },
     {
-      field: "subject",
-      headerName: "Subject",
+      field: "timeOut",
+      headerName: "Time Out",
       width: 140,
+      headerAlign: "center",
+      headerClassName: 'headColor'
+
+    },
+    {
+      field: "totalHours",
+      headerName: "Total Hours",
+      width: 100,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -223,36 +279,10 @@ const exportToCSV = (csvData, fileName) => {
     {
       field: "date",
       headerName: "Date",
-      width: 100,
-      headerAlign: "center",
-      headerClassName: 'headColor'
-
-    },
-    {
-      field: "status",
-      headerName: "Status",
       width: 130,
       headerAlign: "center",
       headerClassName: 'headColor'
 
-    }, {
-      field: "actionview",
-      headerName: "Manage",
-      width: 122,
-      headerClassName: 'headColor',
-      //grid renders values into the cells as strings
-      // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
-      renderCell: (data) => (
-        <strong>
-          <Link to={`/viewSpecificRequest/${data.row._id}`}>
-            {" "}
-            <i
-              className="bi bi-eye-fill"
-              style={{ fontSize: "20px", color: "#343a40" }}
-            ></i>
-          </Link>
-        </strong>
-      ),
     }
 
   
@@ -260,7 +290,7 @@ const exportToCSV = (csvData, fileName) => {
   ];
 
 
-
+ 
 
   return (
 
@@ -315,41 +345,35 @@ const exportToCSV = (csvData, fileName) => {
         <List>
           <div className="sidebar">
 
-          <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
 
             </Link>
 
             <br></br>
 
-            <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/treasurerOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
             </Link>
 
             <br></br>
-            <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/treasurerTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
 
             <br></br>
-            <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-people-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
-            </Link>
-           
-            <br></br>
-            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/treasurerRequest`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
-              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
+              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
             </Link>
+
 
 
 
@@ -364,14 +388,33 @@ const exportToCSV = (csvData, fileName) => {
       </Drawer>
       <main className={classes.content}>
 
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <button type="button" className="btn btn-secondary"  onClick={(e) => exportToCSV(salaryRequest,fileName)}>Download All Data Request</button>
-        <br></br>
+        <div style={{ float: "right" }}>
+          <button
+            type="button"
+            className="btn btn-outline-success btn-rounded mr-2"
+            data-mdb-ripple-color="dark"
+            onClick={timeIn}
 
+          >
+            Time In
+  </button>
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-rounded "
+            data-mdb-ripple-color="dark"
+            onClick={timeOut}
+          >
+            Time Out
+  </button>
+        </div>
         <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        
+        <button onClick={logout}>LogOut</button>
+
+
 
  {/* TABLE RENDERED */}
       <div style={{ height: 400, width: '70%' }}>
@@ -379,7 +422,7 @@ const exportToCSV = (csvData, fileName) => {
           {/* data grid include filtering, columns. */}
 
           <DataGrid
-            rows={salaryRequest}
+            rows={AttendanceList}
             columns={columns}
             getRowId={(row) => row._id}
             pageSize={5}
@@ -391,8 +434,7 @@ const exportToCSV = (csvData, fileName) => {
 
 
 
-
-
+  
 
       </main>
     </div>
@@ -401,4 +443,4 @@ const exportToCSV = (csvData, fileName) => {
 
   );
 }
-export default Request;
+export default TreasurerDashboard;

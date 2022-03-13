@@ -53,7 +53,7 @@ migzapp.post(
       .withMessage("*Full Name field accept characters values only"),
 
     body("contactNumber")
-      .isLength({ min: 11 })
+      .isLength({ max: 11 })
       .withMessage("*Contact Number field cannot be blank")
 
       .isLength({ max: 11 })

@@ -105,11 +105,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Request() {
+function TreasurerRequest() {
 
 //////////////////// IMPORT TO EXCEL
 
-const fileName ="Salary Requests Downloaded by SK"
+const fileName ="Salary Requests Downloaded by Treasurer"
 
 const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
@@ -162,7 +162,7 @@ const exportToCSV = (csvData, fileName) => {
      if (isLoaded) {
       Axios.post("http://localhost:5000/displaySalaryRequest", 
 
-      { headers: { "x-access-token":localStorage.getItem('sk') },position:localStorage.getItem("position")}
+      { headers: { "x-access-token":localStorage.getItem('treasurer') },position:localStorage.getItem("position")}
       
       )
     
@@ -193,7 +193,7 @@ const exportToCSV = (csvData, fileName) => {
    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
   
    let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-   if(localStorage.getItem('sk')==null){
+   if(localStorage.getItem('treasurer')==null){
     history.push("/")
    }
 
@@ -244,7 +244,7 @@ const exportToCSV = (csvData, fileName) => {
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
       renderCell: (data) => (
         <strong>
-          <Link to={`/viewSpecificRequest/${data.row._id}`}>
+          <Link to={`/treasurerViewSpecificRequest/${data.row._id}`}>
             {" "}
             <i
               className="bi bi-eye-fill"
@@ -286,7 +286,7 @@ const exportToCSV = (csvData, fileName) => {
           </IconButton>
 
           <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            SECRETARYYYYY DASHBOARDS
+            TREASURER DASHBOARDS
           </Typography>
 
         </Toolbar>
@@ -315,7 +315,7 @@ const exportToCSV = (csvData, fileName) => {
         <List>
           <div className="sidebar">
 
-          <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
+          <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
@@ -324,32 +324,26 @@ const exportToCSV = (csvData, fileName) => {
 
             <br></br>
 
-            <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
+            <Link to={`/treasurerOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Officials</span>
             </Link>
 
             <br></br>
-            <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/treasurerTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
             </Link>
-
             <br></br>
-            <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
-              className="bi bi-people-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
-            </Link>
-           
-            <br></br>
-            <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
+            <Link to={`/treasurerRequest`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
             </Link>
+           
+            
 
 
 
@@ -401,4 +395,4 @@ const exportToCSV = (csvData, fileName) => {
 
   );
 }
-export default Request;
+export default TreasurerRequest;
