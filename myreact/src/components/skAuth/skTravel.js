@@ -243,7 +243,7 @@ function Travel() {
     {
       field: `fullname`,
       headerName: "FullName",
-      width: 130,
+      width: 150,
       className: "userId",
       headerAlign: "center",
       headerClassName: 'headColor'
@@ -251,7 +251,7 @@ function Travel() {
     {
       field: `_id`,
       headerName: "Travel Log Number",
-      width: 130,
+      width: 140,
       className: "userId",
       headerAlign: "center",
       headerClassName: 'headColor'
@@ -260,14 +260,14 @@ function Travel() {
     {
       field: "position",
       headerName: "Position",
-      width: 130,
+      width: 175,
       headerAlign: "left",
       headerClassName: 'headColor'
     },
     {
       field: "purpose",
       headerName: "Purpose",
-      width: 100,
+      width: 120,
       headerAlign: "left",
       headerClassName: "super-app-theme--header",
       headerClassName: 'headColor'
@@ -275,7 +275,7 @@ function Travel() {
     {
       field: "date",
       headerName: "Date",
-      width: 130,
+      width: 140,
       headerAlign: "left",
       headerClassName: 'headColor'
     },
@@ -283,7 +283,7 @@ function Travel() {
     {
       field: "actionview",
       headerName: "Manage",
-      width: 122,
+      width: 132,
       headerClassName: 'headColor',
       //grid renders values into the cells as strings
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
@@ -343,8 +343,8 @@ function Travel() {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            TRAVEL LOG BOROTOY MADAFUCKING SYSTEM
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px",color:"black" }} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
 
         </Toolbar>
@@ -373,7 +373,7 @@ function Travel() {
           <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Home</span>
 
             </Link>
 
@@ -382,27 +382,27 @@ function Travel() {
             <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Announcement</span>
             </Link>
 
             <br></br>
             <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"white" }}>Travel Log</span>
             </Link>
 
             <br></br>
             <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-people-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Create official</span>
             </Link>
             <br></br>
             <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Data</span>
             </Link>
 
         
@@ -424,7 +424,7 @@ function Travel() {
 
         {/* ADD BUTTON TRAVEL LOG */}
         <div>
-          <Button variant="outlined" onClick={handleClickOpen}>
+           <Button  style={{backgroundColor:"#B4B4B4", color: "black", marginLeft:"15%"}} onClick={handleClickOpen}   >
             Input New in Travel Log
       </Button>
           <br></br>
@@ -578,6 +578,7 @@ function Travel() {
         {/* END ADD NEW TRAVEL LOG BUTTON */}
 
         {/* TABLE RENDERED */}
+        <center>
         <div style={{ height: 400, width: '70%' }}>
 
           {/* data grid include filtering, columns. */}
@@ -592,7 +593,7 @@ function Travel() {
           // checkboxSelection
           />
         </div>
-
+        </center>
       </main>
     </div>
 

@@ -84,7 +84,8 @@ input[type="date"]:before {
     
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 13px;
+    font-size: 13
+    px;
     color:white
     
     
@@ -95,7 +96,7 @@ input[type="date"]:before {
     text-align: center;
     font-size: 13px;
     color: rgb(0, 0, 0);
-    font-family: 'Raleway', sans-serif;
+    font-family:    Arial, Helvetica, sans-serif;
     background-color: white;
 }
 
@@ -162,4 +163,10 @@ input[type="date"]:before {
     list-style: none;
     background-color: #2CA555;
 }
+
+.makeStyles-drawerOpen-7 {
+    width: 175px;
+    transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+}
+
 

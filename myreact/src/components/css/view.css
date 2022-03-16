@@ -131,3 +131,13 @@ p{
   border-radius: 10px;
   overflow: hidden;
 }
+.svg-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2CA555;  /*updated bg color*/
+  -webkit-clip-path: polygon(0 0, 14% 0, 48% 100%, 0% 100%);
+  clip-path: polygon(0 0, 14% 0, 48% 100%, 0% 100%);
+}

@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -129,8 +130,8 @@ function Announcement() {
             <MenuIcon />
           </IconButton>
           
-          <Typography variant="h6" noWrap style={{paddingLeft:"300px"}} >
-           Announcement BOROTOY MADAFUCKING SYSTEM
+          <Typography variant="h6" noWrap style={{paddingLeft:"300px", color:"black"}} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
       
         </Toolbar>
@@ -160,7 +161,7 @@ function Announcement() {
         <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"Black" }}>Home</span>
 
             </Link>
 
@@ -168,15 +169,15 @@ function Announcement() {
 
             <Link to={`/Organizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white" }}>Officials</span>
             </Link>
 
             <br></br>
             <Link to={`/Travel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Travel Log</span>
             </Link>
 
 

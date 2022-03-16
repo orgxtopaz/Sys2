@@ -95,7 +95,7 @@ function App() {
             <Route exact path="/Dashboard" component={Dashboard} />
             <Route exact path="/Organizational" component={Organizational} />
             <Route exact path="/Travel" component={Travel} />
-            <Route exact path="/ManageTravelasOfficial/:viewId" component={viewTravelAsOfficial} />
+            <Route exact path="/ManageTravelasOfficial/:userId" component={viewTravelAsOfficial} />
 
             
             {/* FOR SECRETARY*/}

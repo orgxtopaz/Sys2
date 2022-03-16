@@ -37,6 +37,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    '& .headColor': {       backgroundColor: '#2CA555',       color: 'white'    },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -55,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -247,47 +249,34 @@ function Dashboard() {
     {
       field: "timeIn",
       headerName: "Time In",
-      width: 140,
+      width: 200,
       headerAlign: "center",
+      headerClassName: 'headColor'
     },
     {
       field: "timeOut",
       headerName: "Time Out",
-      width: 140,
+      width: 200,
       headerAlign: "center",
+      headerClassName: 'headColor'
     },
     {
       field: "totalHours",
       headerName: "Total Hours",
-      width: 100,
+      width: 145,
       headerAlign: "center",
       headerClassName: "super-app-theme--header",
+      headerClassName: 'headColor'
     },
     {
       field: "date",
       headerName: "Date",
-      width: 130,
+      width: 200,
       headerAlign: "center",
+      headerClassName: 'headColor'
     },
 
-    {
-      field: "actionview",
-      headerName: "VIEW",
-      width: 122,
-      //grid renders values into the cells as strings
-      // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
-      renderCell: (data) => (
-        <strong>
-          <Link to={`/View/${data.row._id}`}>
-            {" "}
-            <i
-              className="bi bi-eye-fill"
-              style={{ fontSize: "20px", color: "#343a40" }}
-            ></i>
-          </Link>
-        </strong>
-      ),
-    }
+ 
    
   ];
 
@@ -314,8 +303,8 @@ function Dashboard() {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            OFFICIALLLL DASHBOARDDDDDDDDDDD
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px", color:"black" }} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
 
         </Toolbar>
@@ -336,7 +325,7 @@ function Dashboard() {
         <div className={classes.toolbar}>
        
           <IconButton onClick={handleDrawerClose}>
-            <h1>Official</h1>
+            
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
@@ -346,8 +335,8 @@ function Dashboard() {
 
             <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white"  }}>Home</span>
 
             </Link>
 
@@ -356,14 +345,14 @@ function Dashboard() {
             <Link to={`/Organizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Announcement</span>
             </Link>
 
             <br></br>
             <Link to={`/Travel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black"  }}>Travel Log</span>
             </Link>
 
 
@@ -382,6 +371,7 @@ function Dashboard() {
 
         <div style={{ float: "right" }}>
           <button
+           style={{marginLeft:"-15%"}}
             type="button"
             className="btn btn-outline-success btn-rounded mr-2"
             data-mdb-ripple-color="dark"
@@ -398,17 +388,19 @@ function Dashboard() {
           >
             Time Out
   </button>
+  <i className="bi bi-box-arrow-right " style={{cursor: "pointer",float:"right", fontSize:"2.5em" }} onClick={logout}></i>
+
         </div>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
         
-        <button onClick={logout}>LogOut</button>
-
+        
 
 
  {/* TABLE RENDERED */}
+ <center>
       <div style={{ height: 400, width: '70%' }}>
 
           {/* data grid include filtering, columns. */}
@@ -423,7 +415,7 @@ function Dashboard() {
           // checkboxSelection
           />
         </div>
-
+        </center>
 
 
       </main>

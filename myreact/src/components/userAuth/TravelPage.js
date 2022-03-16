@@ -63,6 +63,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    '& .headColor': {       backgroundColor: '#2CA555',       color: 'white'    },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -81,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -243,35 +245,40 @@ function Travel() {
     {
       field: `_id`,
       headerName: "Travel Log Number",
-      width: 130,
+      width: 150,
       className: "userId",
       headerAlign: "center",
+      headerClassName: 'headColor'
     },
  
     {
       field: "position",
       headerName: "Position",
-      width: 130,
+      width: 170,
       headerAlign: "left",
+      headerClassName: 'headColor'
     },
     {
       field: "purpose",
       headerName: "Purpose",
-      width: 100,
+      width: 200,
       headerAlign: "left",
       headerClassName: "super-app-theme--header",
+      headerClassName: 'headColor'
     },
     {
       field: "date",
       headerName: "Date",
-      width: 130,
+      width: 200,
       headerAlign: "left",
+      headerClassName: 'headColor'
     },
 
     {
       field: "actionview",
       headerName: "VIEW",
-      width: 122,
+      headerClassName: 'headColor',
+      width: 138,
       //grid renders values into the cells as strings
       // WHEN THE CELL IS RENDER WE THEN PASS DATA INSIDE PARA MAKA KUHA TAS ROW._ID
       renderCell: (data) => (
@@ -322,10 +329,10 @@ function Travel() {
             })}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> 
 
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            TRAVEL LOG BOROTOY MADAFUCKING SYSTEM
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px",color:"black" }} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
 
         </Toolbar>
@@ -355,7 +362,7 @@ function Travel() {
           <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black"}}>Home</span>
 
             </Link>
 
@@ -364,14 +371,14 @@ function Travel() {
             <Link to={`/Organizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Officials</span>
             </Link>
 
             <br></br>
             <Link to={`/Travel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
-              style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+              style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white" }}>Travel Log</span>
             </Link>
 
 
@@ -394,7 +401,7 @@ function Travel() {
 
         {/* ADD BUTTON TRAVEL LOG */}
         <div>
-          <Button variant="outlined" onClick={handleClickOpen}>
+          <Button style={{backgroundColor:"#B4B4B4", color: "black", marginLeft:"15%"}} onClick={handleClickOpen}>
             Input New in Travel Log
       </Button>
           <br></br>
@@ -544,6 +551,7 @@ function Travel() {
         {/* END ADD NEW TRAVEL LOG BUTTON */}
 
         {/* TABLE RENDERED */}
+        <center>
         <div style={{ height: 400, width: '70%' }}>
 
           {/* data grid include filtering, columns. */}
@@ -558,7 +566,7 @@ function Travel() {
           // checkboxSelection
           />
         </div>
-
+        </center>
       </main>
     </div>
 
