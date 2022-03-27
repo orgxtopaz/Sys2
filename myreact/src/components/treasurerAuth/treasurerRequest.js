@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -207,7 +208,7 @@ const exportToCSV = (csvData, fileName) => {
     {
       field: "from",
       headerName: "From",
-      width: 140,
+      width: 190,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -215,7 +216,7 @@ const exportToCSV = (csvData, fileName) => {
     {
       field: "subject",
       headerName: "Subject",
-      width: 140,
+      width: 190,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -223,7 +224,7 @@ const exportToCSV = (csvData, fileName) => {
     {
       field: "date",
       headerName: "Date",
-      width: 100,
+      width: 220,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -231,7 +232,7 @@ const exportToCSV = (csvData, fileName) => {
     {
       field: "status",
       headerName: "Status",
-      width: 130,
+      width: 150,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -285,8 +286,8 @@ const exportToCSV = (csvData, fileName) => {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            TREASURER DASHBOARDS
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px", color:"black" }} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
 
         </Toolbar>
@@ -307,7 +308,7 @@ const exportToCSV = (csvData, fileName) => {
         <div className={classes.toolbar}>
        
           <IconButton onClick={handleDrawerClose}>
-            <h1>Official</h1>
+
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
@@ -318,7 +319,7 @@ const exportToCSV = (csvData, fileName) => {
           <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black"  }}>Home</span>
 
             </Link>
 
@@ -327,20 +328,20 @@ const exportToCSV = (csvData, fileName) => {
             <Link to={`/treasurerOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Officials</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black"  }}>Officials</span>
             </Link>
 
             <br></br>
             <Link to={`/treasurerTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Travel Log</span>
             </Link>
             <br></br>
             <Link to={`/treasurerRequest`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white" }}>Data</span>
             </Link>
            
             
@@ -362,12 +363,13 @@ const exportToCSV = (csvData, fileName) => {
         <br></br>
         <br></br>
         <br></br>
-        <button type="button" className="btn btn-secondary"  onClick={(e) => exportToCSV(salaryRequest,fileName)}>Download All Data Request</button>
+        <button type="button" className="btn " style={{ color:"green", backgroundColor:"palegreen", marginLeft:"15%", fontSize:"13px"}}  onClick={(e) => exportToCSV(salaryRequest,fileName)}> Download Data <i class="bi bi-arrow-down-short"></i></button>
         <br></br>
 
         <br></br>
 
  {/* TABLE RENDERED */}
+ <center>
       <div style={{ height: 400, width: '70%' }}>
 
           {/* data grid include filtering, columns. */}
@@ -382,7 +384,7 @@ const exportToCSV = (csvData, fileName) => {
           // checkboxSelection
           />
         </div>
-
+        </center>
 
 
 

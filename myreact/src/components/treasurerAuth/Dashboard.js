@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -255,7 +256,7 @@ function TreasurerDashboard() {
     {
       field: "timeIn",
       headerName: "Time In",
-      width: 140,
+      width: 200,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -263,7 +264,7 @@ function TreasurerDashboard() {
     {
       field: "timeOut",
       headerName: "Time Out",
-      width: 140,
+      width: 200,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -271,7 +272,7 @@ function TreasurerDashboard() {
     {
       field: "totalHours",
       headerName: "Total Hours",
-      width: 100,
+      width: 180,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -279,7 +280,7 @@ function TreasurerDashboard() {
     {
       field: "date",
       headerName: "Date",
-      width: 130,
+      width: 175,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -315,8 +316,8 @@ function TreasurerDashboard() {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            SECRETARYYYYY DASHBOARDS
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px", color:"black" }} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
 
         </Toolbar>
@@ -337,7 +338,7 @@ function TreasurerDashboard() {
         <div className={classes.toolbar}>
        
           <IconButton onClick={handleDrawerClose}>
-            <h1>Official</h1>
+           
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
@@ -348,7 +349,7 @@ function TreasurerDashboard() {
             <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white" }}>Home</span>
 
             </Link>
 
@@ -357,21 +358,21 @@ function TreasurerDashboard() {
             <Link to={`/treasurerOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Announcement</span>
             </Link>
 
             <br></br>
             <Link to={`/treasurerTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Travel Log</span>
             </Link>
 
             <br></br>
             <Link to={`/treasurerRequest`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Data</span>
             </Link>
 
 
@@ -390,6 +391,7 @@ function TreasurerDashboard() {
 
         <div style={{ float: "right" }}>
           <button
+          style={{marginLeft:"-15%"}}
             type="button"
             className="btn btn-outline-success btn-rounded mr-2"
             data-mdb-ripple-color="dark"
@@ -406,18 +408,20 @@ function TreasurerDashboard() {
           >
             Time Out
   </button>
+  <i className="bi bi-box-arrow-right " style={{cursor: "pointer",float:"right", fontSize:"2.5em" }} onClick={logout}></i>
         </div>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
         
-        <button onClick={logout}>LogOut</button>
+        
 
 
 
  {/* TABLE RENDERED */}
-      <div style={{ height: 400, width: '70%' }}>
+ <center>
+      <div style={{ height: 400, width: '60%' }}>
 
           {/* data grid include filtering, columns. */}
 
@@ -431,7 +435,7 @@ function TreasurerDashboard() {
           // checkboxSelection
           />
         </div>
-
+        </center>
 
 
   

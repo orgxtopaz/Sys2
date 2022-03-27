@@ -195,7 +195,7 @@ code,
 kbd,
 pre,
 samp {
-	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-family: 'Raleway', sans-serif;
 	font-size: 1em
 }
 
@@ -4399,14 +4399,14 @@ input[type=submit].btn-block {
 	text-decoration: none
 }
 
-.navbar-toggler-icon {
-	display: inline-block;
-	width: 1.5em;
-	height: 1.5em;
-	vertical-align: middle;
-	content: "";
-	background: 50%/100% 100% no-repeat
-}
+	.navbar-toggler-icon {
+		display: inline-block;
+		width: 1.5em;
+		height: 1.5em;
+		vertical-align: middle;
+		content: "";
+		background: 50%/100% 100% no-repeat
+	}
 
 .navbar-nav-scroll {
 	max-height: 75vh;

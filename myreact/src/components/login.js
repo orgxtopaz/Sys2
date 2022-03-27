@@ -28,78 +28,82 @@ let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
 
 
 
-const loginNow =(e)=>{
-    e.preventDefault();
+ const loginNow =(e)=>{
+  e.preventDefault();
 
-    const data ={
-        password: password,
-        email: email
-    }
-    
-    Axios.post("http://localhost:5000/login",data)
+  const data ={
+      password: password,
+      email: email
+  }
+  
+  Axios.post("http://localhost:5000/login",data)
 
-    .then(res =>{
-
-
-       //IF AUTH IS = TRUE comes from the backend!
-     if (res.data.auth){
-
-       if(res.data.position ==="official"){
-        console.log(res.data)
-        localStorage.setItem("Official", res.data.token);
-        localStorage.setItem("Email", res.data.email);
-        localStorage.setItem("fullname", res.data.fullname);
-        localStorage.setItem("position", res.data.position);
-        history.push(`/Dashboard`); 
-
-       } else if(res.data.position ==="sk"){       
-        localStorage.setItem("sk", res.data.token);
-        localStorage.setItem("Email", res.data.email);
-        localStorage.setItem("fullname", res.data.fullname);
-        localStorage.setItem("position", res.data.position);
-        history.push(`/skDashboard`); 
-
-       }
-       else if(res.data.position ==="secretary"){       
-        localStorage.setItem("secretary", res.data.token);
-        localStorage.setItem("Email", res.data.email);
-        localStorage.setItem("fullname", res.data.fullname);
-        localStorage.setItem("position", res.data.position);
-        history.push(`/secretaryDashboard`); 
-       }
-
-       else if(res.data.position ==="treasurer"){       
-        localStorage.setItem("treasurer", res.data.token);
-        localStorage.setItem("Email", res.data.email);
-        localStorage.setItem("fullname", res.data.fullname);
-        localStorage.setItem("position", res.data.position);
+  .then(res =>{
 
 
-        history.push(`/treasurerDashboard`); 
-       }
+     //IF AUTH IS = TRUE comes from the backend!
+   if (res.data.auth){
+
+     if(res.data.position ==="official" || res.data.position ==="captain"){
+      console.log(res.data)
+      localStorage.setItem("Official", res.data.token);
+      localStorage.setItem("Email", res.data.email);
+      localStorage.setItem("fullname", res.data.fullname);
+      localStorage.setItem("position", res.data.position);
+      history.push(`/Dashboard`); 
+
+     } else if(res.data.position ==="sk"){       
+      localStorage.setItem("sk", res.data.token);
+      localStorage.setItem("Email", res.data.email);
+      localStorage.setItem("fullname", res.data.fullname);
+      localStorage.setItem("position", res.data.position);
+      history.push(`/skDashboard`); 
 
      }
-      
+     else if(res.data.position ==="secretary"){       
+      localStorage.setItem("secretary", res.data.token);
+      localStorage.setItem("Email", res.data.email);
+      localStorage.setItem("fullname", res.data.fullname);
+      localStorage.setItem("position", res.data.position);
+      history.push(`/secretaryDashboard`); 
+     }
 
-    })
-     .catch(err =>{
-        alert(err.response.data.message)
-        
-   })
+     else if(res.data.position ==="treasurer"){       
+      localStorage.setItem("treasurer", res.data.token);
+      localStorage.setItem("Email", res.data.email);
+      localStorage.setItem("fullname", res.data.fullname);
+      localStorage.setItem("position", res.data.position);
+
+
+      history.push(`/treasurerDashboard`); 
+     }
+
+    
+   }
+    
+
+  })
+   .catch(err =>{
+      alert(err.response.data.message)
+      
+ })
 
 }
 
 ///IF THE USER SUCCESSFULLY LOG IN , IT CANNOT GO BACK TO THE LOG IN PAGE
 if(localStorage.getItem('Official')!=null){
- history.push("/Dashboard")
+history.push("/Dashboard")
 }else if(localStorage.getItem('sk')!=null){
-  history.push("/skDashboard")
+history.push("/skDashboard")
 }
 else if(localStorage.getItem('secretary')!=null){
-  history.push("/secretaryDashboard")
+history.push("/secretaryDashboard")
 }
 else if(localStorage.getItem('treasurer')!=null){
-  history.push("/treasurerDashboard")
+history.push("/treasurerDashboard")
+}
+else if(localStorage.getItem('captain')!=null){
+history.push("/Dashboard")
 }
 
 
@@ -152,12 +156,10 @@ return (
               </form>
       
               <div className="text-center">
-                <a className="small" href="forgot-password.html" style={{color: "#2CA555"}}>Forgot Password?</a>
+                <a className="small" href="/forgot" style={{color: "#2CA555"}}>Forgot Password?</a>
               </div>
 
-              <div className="text-center">
-                <a className="small" href="/register" style={{color: "#2CA555"}} >Create an Account!</a>
-              </div>
+           
               
             </div>
           </div>

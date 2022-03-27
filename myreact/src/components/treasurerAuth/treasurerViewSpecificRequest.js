@@ -282,11 +282,11 @@ update this request?</p>
                     placeholder="sdsd"
                     style={{ borderColor: "black" ,height:"32px",fontFamily:"'Raleway', sans-serif",width:"190%", backgroundColor:'#72FF1B'}}
                 >
-                    <option value="" hidden>
+                    <option value="" hidden >
                     Choose
                     </option>
-                    <option value="Approved" style={{fontFamily:"'Raleway', sans-serif"}}>Approve</option>
-                    <option value="Cancelled" style={{fontFamily:"'Raleway', sans-serif"}}>Cancel</option>
+                    <option value="Approved" style={{fontFamily:"'Raleway', sans-serif", fontSize:"15px"}}>Approve</option>
+                    <option value="Cancelled" style={{fontFamily:"'Raleway', sans-serif", fontSize:"15px"}}>Cancel</option>
                 
 
                 </select>

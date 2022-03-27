@@ -243,7 +243,7 @@ function TreasurerTravel() {
     {
       field: `fullname`,
       headerName: "FullName",
-      width: 130,
+      width: 170,
       className: "userId",
       headerAlign: "center",
       headerClassName: 'headColor'
@@ -260,14 +260,14 @@ function TreasurerTravel() {
     {
       field: "position",
       headerName: "Position",
-      width: 130,
+      width: 170,
       headerAlign: "left",
       headerClassName: 'headColor'
     },
     {
       field: "purpose",
       headerName: "Purpose",
-      width: 100,
+      width: 150,
       headerAlign: "left",
       headerClassName: "super-app-theme--header",
       headerClassName: 'headColor'
@@ -275,7 +275,7 @@ function TreasurerTravel() {
     {
       field: "date",
       headerName: "Date",
-      width: 130,
+      width: 150,
       headerAlign: "left",
       headerClassName: 'headColor'
     },
@@ -343,8 +343,8 @@ function TreasurerTravel() {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            TRAVEL LOG BOROTOY MADAFUCKING SYSTEM
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px", color:"black" }} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
 
         </Toolbar>
@@ -373,7 +373,7 @@ function TreasurerTravel() {
           <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Home</span>
 
             </Link>
 
@@ -382,21 +382,21 @@ function TreasurerTravel() {
             <Link to={`/treasurerOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Official</span>
             </Link>
 
             <br></br>
             <Link to={`/treasurerTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white" }}>Travel Log</span>
             </Link>
      
             <br></br>
             <Link to={`/treasurerRequest`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Data</span>
             </Link>
 
         
@@ -418,7 +418,7 @@ function TreasurerTravel() {
 
         {/* ADD BUTTON TRAVEL LOG */}
         <div>
-          <Button variant="outlined" onClick={handleClickOpen}>
+        <Button style={{backgroundColor:"#B4B4B4", color: "black", marginLeft:"15%"}} onClick={handleClickOpen}>
             Input New in Travel Log
       </Button>
           <br></br>
@@ -572,6 +572,7 @@ function TreasurerTravel() {
         {/* END ADD NEW TRAVEL LOG BUTTON */}
 
         {/* TABLE RENDERED */}
+        <center>
         <div style={{ height: 400, width: '70%' }}>
 
           {/* data grid include filtering, columns. */}
@@ -586,7 +587,7 @@ function TreasurerTravel() {
           // checkboxSelection
           />
         </div>
-
+        </center>
       </main>
     </div>
 

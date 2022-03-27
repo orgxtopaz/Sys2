@@ -319,7 +319,7 @@ const exportToCSV = (csvData, fileName) => {
           <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px", color:"black" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Home</span>
 
             </Link>
 
@@ -328,28 +328,28 @@ const exportToCSV = (csvData, fileName) => {
             <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px", color:"black" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Announcement</span>
             </Link>
 
             <br></br>
             <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px", color:"black" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Travel Log</span>
             </Link>
 
             <br></br>
             <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-people-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px", color:"black" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Travel Log</span>
             </Link>
            
             <br></br>
             <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px", color:"white" }}>Data</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white" }}>Data</span>
             </Link>
 
 
@@ -369,7 +369,7 @@ const exportToCSV = (csvData, fileName) => {
         <br></br>
         <br></br>
         <br></br>
-        <button type="button" className="btn " style={{ color:"green", backgroundColor:"palegreen", marginLeft:"15%"}}  onClick={(e) => exportToCSV(salaryRequest,fileName)}> Download Data <i class="bi bi-arrow-down-short"></i></button>
+        <button type="button" className="btn " style={{ color:"green", backgroundColor:"palegreen", marginLeft:"15%", fontSize:"13px"}}  onClick={(e) => exportToCSV(salaryRequest,fileName)}> Download Data <i class="bi bi-arrow-down-short"></i></button>
         <br></br>
 
         <br></br>

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route} from "react-router-dom"; //routes
 
 import Login from "./components/login";
+import Forgot from "./components/forgot";
 
 
 
@@ -85,6 +86,7 @@ function App() {
            
             {/* ROUTES LANG SAKALAM */}
             <Route exact path="/" component={Login} />
+            <Route exact path="/forgot" component={Forgot} />
 
             <Route exact path="/Update/:updateId" component={Update} />
 

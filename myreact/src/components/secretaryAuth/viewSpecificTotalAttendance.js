@@ -200,10 +200,13 @@ function ViewSpecificTotalAttendance() {
           <div className="svg-background"></div>
           <div className="svg-background2"></div>
           <div className="circle"></div>
-          <img
+          
+          {/* <img
             className="menu-icon"
             src="https://pngimage.net/wp-content/uploads/2018/06/white-menu-icon-png-8.png"
-          />
+          /> */}
+
+
           <img
             className="profile-img"
             src={viewEditRequest}
@@ -267,7 +270,7 @@ function ViewSpecificTotalAttendance() {
                   }}
               
                 placeholder="sdsd"
-                style={{ borderColor: "black" ,height:"32px",fontFamily:"'Raleway', sans-serif",width:"190%",backgroundColor:'#72FF1B'}}
+                style={{ borderColor: "black" ,height:"32px",fontFamily:"'Raleway', sans-serif",width:"190%",backgroundColor:'#72FF1B', fontSize:"13px"}}
               >
                 <option value="" hidden>
                   Request to

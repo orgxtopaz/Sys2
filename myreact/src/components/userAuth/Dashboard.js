@@ -249,21 +249,21 @@ function Dashboard() {
     {
       field: "timeIn",
       headerName: "Time In",
-      width: 200,
+      width: 240,
       headerAlign: "center",
       headerClassName: 'headColor'
     },
     {
       field: "timeOut",
       headerName: "Time Out",
-      width: 200,
+      width: 240,
       headerAlign: "center",
       headerClassName: 'headColor'
     },
     {
       field: "totalHours",
       headerName: "Total Hours",
-      width: 145,
+      width: 165,
       headerAlign: "center",
       headerClassName: "super-app-theme--header",
       headerClassName: 'headColor'
@@ -271,7 +271,7 @@ function Dashboard() {
     {
       field: "date",
       headerName: "Date",
-      width: 200,
+      width: 230,
       headerAlign: "center",
       headerClassName: 'headColor'
     },

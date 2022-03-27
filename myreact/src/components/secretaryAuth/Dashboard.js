@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    color:"gray"
   },
   hide: {
     display: 'none',
@@ -276,7 +277,7 @@ function SecretaryDashboard() {
     {
       field: "timeIn",
       headerName: "Time In",
-      width: 140,
+      width: 255,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -284,7 +285,7 @@ function SecretaryDashboard() {
     {
       field: "timeOut",
       headerName: "Time Out",
-      width: 140,
+      width: 255,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -292,7 +293,7 @@ function SecretaryDashboard() {
     {
       field: "totalHours",
       headerName: "Total Hours",
-      width: 100,
+      width: 190,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -300,7 +301,7 @@ function SecretaryDashboard() {
     {
       field: "date",
       headerName: "Date",
-      width: 130,
+      width: 180,
       headerAlign: "center",
       headerClassName: 'headColor'
 
@@ -321,7 +322,7 @@ function SecretaryDashboard() {
         {
           field: "fullname",
           headerName: "Fullname",
-          width: 140,
+          width: 180,
           headerAlign: "center",
           headerClassName: 'headColor'
 
@@ -329,7 +330,7 @@ function SecretaryDashboard() {
         {
           field: "overallTotalDays",
           headerName: "Total Days Worked",
-          width: 140,
+          width: 200,
           headerAlign: "center",
           headerClassName: 'headColor'
 
@@ -405,8 +406,8 @@ function SecretaryDashboard() {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" noWrap style={{ paddingLeft: "300px" }} >
-            SECRETARYYYYY DASHBOARDS
+          <Typography variant="h6" noWrap style={{ paddingLeft: "300px", color:"black" }} >
+          Web-based Management System for Barangay Officials of Nalhub, Dalaguete, Cebu
           </Typography>
 
         </Toolbar>
@@ -427,7 +428,7 @@ function SecretaryDashboard() {
         <div className={classes.toolbar}>
        
           <IconButton onClick={handleDrawerClose}>
-            <h1>Official</h1>
+           
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
@@ -438,7 +439,7 @@ function SecretaryDashboard() {
             <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"white" }}>Home</span>
 
             </Link>
 
@@ -447,14 +448,14 @@ function SecretaryDashboard() {
             <Link to={`/SecretaryOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black" }}>Announcement</span>
             </Link>
 
             <br></br>
             <Link to={`/secretaryTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px", color:"black"}}>Travel Log</span>
             </Link>
 
 
@@ -473,6 +474,7 @@ function SecretaryDashboard() {
 
         <div style={{ float: "right" }}>
           <button
+           style={{marginLeft:"-15%"}}
             type="button"
             className="btn btn-outline-success btn-rounded mr-2"
             data-mdb-ripple-color="dark"
@@ -489,17 +491,19 @@ function SecretaryDashboard() {
           >
             Time Out
   </button>
+  <i className="bi bi-box-arrow-right " style={{cursor: "pointer",float:"right", fontSize:"2.5em" }} onClick={logout}></i>
         </div>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
         
-        <button onClick={logout}>LogOut</button>
+       
 
 
 
  {/* TABLE RENDERED */}
+ <center>
       <div style={{ height: 400, width: '70%' }}>
 
           {/* data grid include filtering, columns. */}
@@ -535,12 +539,13 @@ function SecretaryDashboard() {
             // checkboxSelection
             />
             </div>
+       
 
-
-
+            </center>
       </main>
+     
     </div>
-
+ 
 
 
   );

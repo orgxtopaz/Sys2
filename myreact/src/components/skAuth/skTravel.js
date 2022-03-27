@@ -373,7 +373,7 @@ function Travel() {
           <Link to={`/skDashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Home</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px",color:"white", color:"black" }}>Home</span>
 
             </Link>
 
@@ -382,27 +382,27 @@ function Travel() {
             <Link to={`/skOrganizational`} style={{ fontSize: "40px" }}> <i
               className="bi bi-diagram-3-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Announcement</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px",color:"white", color:"black" }}>Announcement</span>
             </Link>
 
             <br></br>
             <Link to={`/skTravel`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-cursor-fill"
               style={{ fontSize: "20px", color: "white", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"white" }}>Travel Log</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px",color:"white", color:"white" }}>Travel Log</span>
             </Link>
 
             <br></br>
             <Link to={`/createOfficial`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-people-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Create official</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px",color:"white", color:"black" }}>Create official</span>
             </Link>
             <br></br>
             <Link to={`/request`} style={{ fontSize: "40px" }}>  <i
               className="bi bi-file-earmark-text"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
-            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px",color:"white", color:"black" }}>Data</span>
+            ></i>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "15px",color:"white", color:"black" }}>Data</span>
             </Link>
 
         

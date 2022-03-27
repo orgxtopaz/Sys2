@@ -19,10 +19,16 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom"; // allows us to access our path / route history.
+import "../../components/css/component.css"
 
-import { BrowserRouter as Router, Route,Link} from "react-router-dom"; //routes
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //routes
+
+import Axios from "axios"; //allows us to make GET and POST requests from the browser.
+
+import { useState } from "react"; //HERE we import useState Hook so we can add state to our functional components.
 
 
+import { useEffect } from "react"; //a hook that GIVES  "side-effects"
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
-    color:"gray"
+    color: "gray"
   },
   hide: {
     display: 'none',
@@ -103,12 +109,98 @@ function TreasurerOrganizational() {
 
 
   //    ///CHECKING IF USER IS AUTHENTICATED WITH TOKEN
-  
+
   let history = useHistory(); //USE HISTORY  it will DETERMINED OUR PAST PATH.
-  if(localStorage.getItem('treasurer')==null){
-   history.push("/")
+  if (localStorage.getItem('treasurer') == null) {
+    history.push("/")
   }
 
+
+
+  ///////////////////DISPLAY ALL OFFICIALS
+
+
+  /////FETCHING THE OFFICIAL ATTENDANCE DATA SPECIFIC
+
+  const [official, setOfficial] = useState([]);
+  const [secretary, setSecretary] = useState([]);
+  const [treasurer, setTreasurer] = useState([]);
+  const [sk, setSk] = useState([]);
+  const [captain, setCaptain] = useState([]);
+  const isLoaded = [true];
+
+  const allOfficial = []
+  const allSecretary = []
+  const allTreasurer = []
+  const allSk = []
+  const allCaptain = []
+  useEffect(() => {
+
+
+    if (isLoaded) {
+      Axios.post("http://localhost:5000/displayOfficial",
+
+        {
+          headers: { "x-access-token": localStorage.getItem('treasurer') }, email: localStorage.getItem("Email")
+
+
+        }
+
+      )
+
+
+        .then((response) => {
+
+
+
+          for (let ctr = 0; ctr < response.data.length; ctr++) {
+            if (response.data[ctr].position == "official") {
+              allOfficial.push(response.data[ctr])
+
+            }
+            else if (response.data[ctr].position == "secretary") {
+              allSecretary.push(response.data[ctr])
+
+            }
+            else if (response.data[ctr].position == "treasurer") {
+              allTreasurer.push(response.data[ctr])
+
+            }
+            else if (response.data[ctr].position == "sk") {
+              allSk.push(response.data[ctr])
+
+            }
+            else if (response.data[ctr].position == "captain") {
+              allCaptain.push(response.data[ctr])
+
+            }
+
+
+
+          }
+
+          console.log(response.data)
+          setOfficial(allOfficial)
+          setSecretary(allSecretary)
+          setTreasurer(allTreasurer)
+          setSk(allSk)
+          setCaptain(allCaptain)
+          //  setCaptain(allCaptain[0].fullname)
+
+          //  alert(captain)
+
+
+
+
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    } else {
+      alert("GAdsgsdgd")
+    }
+  }, isLoaded);
+  //////////////////END
   return (
   
     <div className={classes.root}>
@@ -160,7 +252,7 @@ function TreasurerOrganizational() {
         <List>
         <div className="sidebar">
 
-        <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
+       <Link to={`/Dashboard`} style={{ fontSize: "40px" }}> <i
               className="bi bi-house-door-fill"
               style={{ fontSize: "20px", color: "#343a40", paddingLeft: "15px" }}
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Home</span>
@@ -188,8 +280,6 @@ function TreasurerOrganizational() {
             ></i><span style={{ fontSize: "10px", color: "red" }} class="counter counter-lg">40</span>&nbsp;&nbsp;<span style={{ paddingLeft: "20px", fontSize: "20px" }}>Data</span>
             </Link>
           
-
-          
            
        
       </div>
@@ -198,98 +288,522 @@ function TreasurerOrganizational() {
         
         <Divider />
       
-      </Drawer>
+        </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <div className="row">
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="content">
+          <br></br>
+          <center>
+            <h1>Nalhub Madapaking  Chart</h1>
+
+          </center>
+          <figure className="org-chart cf">
+            <ul className="administration">
+              <li>
+                <ul className="director">
+                  <li>
+                    {captain.map((val) =>
+                      <a href="#" className="a" data-toggle="modal"
+                        data-target="#captain">
+                         <i className="bi bi-person-circle" style={{ fontSize: "3em" }}></i>
+                        <span style={{ fontSize: "2em" }}>{val.fullname}</span>
+
+                        <br></br>
+                        <span>Brgy.Captain</span>
+                        <br></br>
+
+
+                        <div
+                          className="modal fade"
+                          id="captain"
+                          tabIndex={-1}
+                          aria-labelledby="exampleModalLabel"
+                          aria-hidden="true"
+                          data-backdrop="false"
+                        >
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <div className="modal-dialog">
+                            <div className="modal-content">
+                              <div className="modal-header bg-success">
+                                <h5 className="modal-title" id="exampleModalLabel" style={{marginLeft:"33.33%"}} >
+                                {val.fullname}
+                                </h5>
+                                <button
+                                  type="button"
+                                  className="close"
+                                  data-dismiss="modal"
+                                  aria-label="Close"
+                                >
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                              </div>
+                                <div className="modal-body"style={{float:"left"}} >
+                                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80" alt="Avatar" style={{width:"150px",borderRadius:"50%"}}></img>
+                                <br></br>
+                                <br></br>
+
+                                <h6> 📞 Contact Number : {val.contactNumber}</h6>
+                                <h6>📧 Email Address : {val.email}</h6>
+                                <h6>📌Position : {val.position}</h6>
+
+                              </div>
+                              <div className="modal-footer">
+                                <button
+                                  type="button"
+                                  className="btn btn-secondary"
+                                  data-dismiss="modal"
+                                >
+                                  Close
+      </button>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </a>
+                    )}
+
+
+
+
+
+
+
+
+
+
+                    <ul className="subdirector">
+                      {secretary.map((val) =>
+                        <li>
+                          <a href="#" className="a" data-toggle="modal"
+                            data-target={`#` + val.fullname.replace(/ /g, "")}>
+
+
+
+                            <div
+                              className="modal fade"
+                              id={val.fullname.replace(/ /g, "")}
+                              tabIndex={-1}
+                              aria-labelledby="exampleModalLabel"
+                              aria-hidden="true"
+                              data-backdrop="false"
+                              style={{marginLeft:"16%"}}
+                            >
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <div className="modal-dialog">
+                                <div className="modal-content">
+                                  <div className="modal-header bg-success">
+                                    <h5 className="modal-title" id="exampleModalLabel" style={{marginLeft:"40.33%"}}>
+                                      {val.fullname}
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      className="close"
+                                      data-dismiss="modal"
+                                      aria-label="Close"
+                                    >
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                  <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80" alt="Avatar" style={{width:"150px",borderRadius:"50%"}}></img>
+                                <br></br>
+                                <br></br>
+                                  <h6> 📞 Contact Number : {val.contactNumber}</h6>
+                                <h6>📧 Email Address : {val.email}</h6>
+                                <h6>📌Position : {val.position}</h6>
+
+                                  </div>
+                                  <div className="modal-footer">
+                                    <button
+                                      type="button"
+                                      className="btn btn-secondary"
+                                      data-dismiss="modal"
+                                    >
+                                      Close
+      </button>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <i className="bi bi-person-fill" style={{ fontSize: "2.5em" }}></i>
+
+
+                            <span style={{ fontSize: "2em" }}>{val.fullname}</span>
+
+                            <br></br>
+
+                            <span>Secretary</span>
+                          </a>
+
+
+                        </li>
+
+
+
+                      )}
+
+
+
+                    </ul>
+
+
+
+
+
+
+
+                    <ul className="departments cf">
+                      {treasurer.map((val) =>
+
+
+
+
+
+                        <li>
+                          <a href="#" className="a" data-toggle="modal"
+                            data-target={`#` + val.fullname.replace(/ /g, "")}>
+
+
+                            <div
+                              className="modal fade"
+                              id={val.fullname.replace(/ /g, "")}
+                              tabIndex={-1}
+                              aria-labelledby="exampleModalLabel"
+                              aria-hidden="true"
+                              data-backdrop="false"
+                            >
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <div className="modal-dialog">
+                                <div className="modal-content">
+                                  <div className="modal-header bg-success">
+                                    <h5 className="modal-title" id="exampleModalLabel" style={{marginLeft:"40.33%"}}>
+                                      {val.fullname}
+                                    </h5>
+                                    <button
+                                      type="button"
+                                      className="close"
+                                      data-dismiss="modal"
+                                      aria-label="Close"
+                                    >
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                  </div>
+                                  <div className="modal-body">
+                                  <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80" alt="Avatar" style={{width:"150px",borderRadius:"50%"}}></img>
+                                <br></br>
+                                <br></br>
+                                  <h6> 📞 Contact Number : {val.contactNumber}</h6>
+                                <h6>📧 Email Address : {val.email}</h6>
+                                <h6>📌Position : {val.position}</h6>
+
+                                  </div>
+                                  <div className="modal-footer">
+                                    <button
+                                      type="button"
+                                      className="btn btn-secondary"
+                                      data-dismiss="modal"
+                                    >
+                                      Close
+      </button>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <i className="bi bi-person-fill" style={{ fontSize: "2.5em" }}></i>
+
+                            <span style={{ fontSize: "2em" }}>{val.fullname}</span>
+
+                            <br></br>
+
+                            <span>Treasurer</span>
+
+                          </a>
+
+
+
+
+
+                        </li>
+
+
+
+
+
+
+                      )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      <li className="department dep-a">
+
+
+                      </li>
+
+
+
+
+
+
+
+                      <li className="department dep-d">
+                        <a href="#" className="a">
+                          <span style={{ fontSize: "1.5em" ,marginTop:"-0.7em" }} >SK MEMBERS</span>
+                        </a>
+                        <ul className="sections">
+
+                          {sk.map((val) =>
+
+
+                            <li className="section" style={{ width:"85%" }}>
+                              <a href="#" className="a" data-toggle="modal"
+                                data-target={`#` + val.fullname.replace(/ /g, "")}>
+
+                                 <i className="bi bi-person-fill" style={{ fontSize: "2.3em" }}></i>
+
+                                <span style={{ fontSize: "1.5em" }}>{val.fullname}</span>
+                              </a>
+
+
+                              <>
+
+                                {/* Modal */}
+                                <div
+                                  className="modal fade"
+                                  id={val.fullname.replace(/ /g, "")}
+                                  tabIndex={-1}
+                                  aria-labelledby="exampleModalLabel"
+                                  aria-hidden="true"
+                                >
+                                  <br></br>
+                                  <br></br>
+                                  <br></br>
+                                  <div className="modal-dialog">
+                                    <div className="modal-content">
+                                      <div className="modal-header bg-success">
+                                        <h5 className="modal-title" id="exampleModalLabel" style={{marginLeft:"40.33%"}}>
+                                          {val.fullname}
+                                        </h5>
+                                        <button
+                                          type="button"
+                                          className="close"
+                                          data-dismiss="modal"
+                                          aria-label="Close"
+                                        >
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                      </div>
+                                      <div className="modal-body">
+                                      <center>
+                                      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80" alt="Avatar" style={{width:"150px",borderRadius:"50%"}}></img>
+                                <br></br>
+                                <br></br>
+                                      <h6> 📞 Contact Number : {val.contactNumber}</h6>
+                                <h6>📧 Email Address : {val.email}</h6>
+                                <h6>📌Position : {val.position}</h6>
+                                </center>
+                                      </div>
+                                      <div className="modal-footer">
+                                        <button
+                                          type="button"
+                                          className="btn btn-secondary"
+                                          data-dismiss="modal"
+                                        >
+                                          Close
+          </button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </>
+
+
+                            </li>
+
+
+
+
+                          )}
+
+
+
+
+
+
+                        </ul>
+                      </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      <li className="department dep-c">
+
+                      </li>
+                      <li className="department dep-d">
+                        <a href="#" className="a">
+                          <span style={{ fontSize: "1.5em" ,marginTop:"-0.7em" }} >OFFICIALS</span>
+                        </a>
+                        <ul className="sections">
+
+                          {official.map((val) =>
+
+
+                            <li className="section" style={{ width:"85%" }}>
+                              <a href="#" className="a" data-toggle="modal"
+                                data-target={`#` + val.fullname.replace(/ /g, "")}>
+                                  <i className="bi bi-person-fill" style={{ fontSize: "2.3em" }}></i>
+                     
+                                <span style={{ fontSize: "1.5em" }}>{val.fullname}</span>
+                              </a>
+
+
+                              <>
+
+                                {/* Modal */}
+                                <div
+                                  className="modal fade"
+                                  id={val.fullname.replace(/ /g, "")}
+                                  tabIndex={-1}
+                                  aria-labelledby="exampleModalLabel"
+                                  aria-hidden="true"
+                                >
+                                  <br></br>
+                                  <br></br>
+                                  <br></br>
+                                  <div className="modal-dialog">
+                                    <div className="modal-content">
+                                      <div className="modal-header bg-success">
+                                        <h5 className="modal-title" id="exampleModalLabel" style={{marginLeft:"40.33%"}}>
+                                          {val.fullname}
+                                        </h5>
+                                        <button
+                                          type="button"
+                                          className="close"
+                                          data-dismiss="modal"
+                                          aria-label="Close"
+                                        >
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                      </div>
+                                      <center>
+                                        <br></br>
+                                      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80" alt="Avatar" style={{width:"150px",borderRadius:"50%"}}></img>
+                                <br></br>
+                                <br></br>
+                                      <div className="modal-body">
+                                      <h6> 📞 Contact Number : {val.contactNumber}</h6>
+                                <h6>📧 Email Address : {val.email}</h6>
+                                <h6>📌Position : {val.position}</h6>
+                               
+                                      </div>
+                                      </center>
+                                      <div className="modal-footer">
+                                        <button
+                                          type="button"
+                                          className="btn btn-secondary"
+                                          data-dismiss="modal"
+                                        >
+                                          Close
+          </button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </>
+
+
+                            </li>
+
+
+
+
+                          )}
+
+
+
+
+
+
+                        </ul>
+                      </li>
+
+
+
+
+
+
+
+
+
+
+
+
+                      <li className="department dep-e">
+
+
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </figure>
         </div>
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted">sss</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-sm-6 col-lg-4">
-          <div className="card" style={{maxWidth: '18rem'}}>
-            <div className="card-header bg-github content-center">
-              <i className="fab fa-github icon text-white my-4 display-4" />
-            </div>
-            <div className="card-body row text-center">
-              <div className="col">
-                <div className="card h-100">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl3VeQsW5pBH4Xugq5dJZQYEsz24MARdfeGg&usqp=CAU" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title" />
-                    <p className="card-text" />
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
       </main>
     </div>
-    
+
   );
 }
 export default TreasurerOrganizational;
+
